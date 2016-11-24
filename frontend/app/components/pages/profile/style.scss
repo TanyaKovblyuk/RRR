@@ -1,0 +1,40 @@
+div.user-show {
+  .profile-static {
+    float: left;
+    width: 250px;
+    border: 2px groove rgba(96, 125, 139, 0.15);
+    background: rgba(63, 81, 181, 0.11);
+    padding-bottom: 20px;
+
+    .friends {
+      width: 190px;
+      height: 200px;
+      padding: 5px 20px 5px 20px;
+      clear: both;
+      margin: auto;
+
+      p.friends-h1 {
+        padding-left: 10px;
+        color: blue;
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-size: 14px;
+
+        a {
+          float: right;
+          margin-right: 10px;
+          font-size: 12px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .profile-activity {
+    width: 505px;
+    margin-left: 270px;
+    padding: 10px 10px 20px 10px;
+    border: 2px groove rgba(96, 125, 139, 0.15);
+    background: rgba(63, 81, 181, 0.11);
+  }
+}

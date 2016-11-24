@@ -1,0 +1,47 @@
+div.post {
+  width: 490px;
+  background: rgba(63, 135, 181, 0.2);
+  border: 1px solid rgba(76, 175, 80, 0.54);
+  padding: 5px 5px 20px 5px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+
+  hr.line{
+    margin-top: 0px;
+    margin-bottom: 2px;
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0));
+  }
+
+  .date{
+    font-size: 12px;
+    color: grey;
+    margin-bottom: 0px;
+  }
+
+  p.post-text {
+    font-size: 16px;
+    width: 465px;
+    padding-left: 10px;
+    word-wrap: break-word;
+    overflow: hidden;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  a.edit-post {
+    font-size: 12px;
+    float: right;
+    margin-left: 10px;
+    text-decoration: none;
+    color: blue;
+    cursor: pointer;
+  }
+
+  .author {
+    font-size: 16px;
+    color: blue;
+    text-decoration: none;
+  }
+}

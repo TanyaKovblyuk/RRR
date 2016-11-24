@@ -1,0 +1,30 @@
+@import url("reset.css");
+
+div.main-content {
+  width: 100%;
+  min-height: 100vh;
+  margin-top: -75px;
+  padding-bottom: 32px;
+
+  .content {
+    padding-top: 20px;
+    clear: both;
+    width: 950px;
+    margin: auto;
+
+    .menu {
+      float: left;
+      width: 150px;
+
+    }
+
+    .yield_pages {
+      width: 800px;
+      min-height: 200px;
+      margin-left: 150px;
+      border: 1px groove rgba(204, 204, 204, 0.42);
+      padding: 10px 10px 10px 10px;
+      background-color: rgba(17, 221, 63, 0.08);
+    }
+  }
+}

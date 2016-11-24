@@ -1,0 +1,40 @@
+div.NewComment {
+  button.new-comment {
+    width: 430px;
+    margin: 0px 10px 0px 70px;
+    height: 25px;
+    border: 2px groove rgba(139, 96, 114, 0.93);
+    background-color: hsla(84, 100%, 100%, 0.94);
+    text-align: left;
+    color: rgba(187, 187, 204, 0.94);
+    font-size: 13px;
+    cursor: text;
+    margin-bottom: 20px;
+  }
+
+  .comment-forms {
+    textarea {
+      border: 2px groove rgba(139, 96, 114, 0.93);
+      background-color: hsla(84, 100%, 100%, 0.94);
+      font-size: 14px;
+      width: 420px;
+      max-width: 420px;
+      margin: 0px 10px 0px 70px;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+
+    button {
+      width: 60px;
+      margin-left: 70px;
+      height: 20px;
+      border-radius: 4px;
+      background: rgb(63, 75, 181);
+      border: 2px solid rgba(76, 175, 80, 0.72);
+      color: white;
+      cursor: pointer;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+  }
+}

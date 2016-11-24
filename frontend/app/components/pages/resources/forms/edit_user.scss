@@ -1,0 +1,46 @@
+div.EditUser {
+  width: 800px;
+  margin: auto;
+
+  .nav-name-content, .nav-pass-content {
+    width: 550px;
+    margin: auto;
+    border-radius: 20px;
+    border: 3px groove rgba(139, 137, 96, 0.59);
+    background: rgba(139, 137, 96, 0.26);
+    padding: 20px 20px 20px 20px;
+    margin-bottom: 20px;
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 250px;
+      height: 25px;
+      border-radius: 20px;
+      border: 3px groove rgba(139, 137, 96, 0.59);
+      margin-bottom: 5px;
+      padding-left: 15px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100px;
+      border-radius: 10px;
+      border: 3px groove rgba(139, 137, 96, 0.59);
+      background: rgba(139, 137, 96, 0.26);
+      border: 3px groove rgba(125, 139, 96, 0.88);
+      background: rgba(10, 23, 74, 0.62);
+      color: white;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: rgba(109, 67, 46, 0.67);
+    }
+  }
+}

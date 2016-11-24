@@ -1,0 +1,33 @@
+.header {
+   background: url('header.png') repeat-x;
+   border-bottom: 2px groove #ffffff;
+   height: 40px;
+   width: 100%;
+
+   #logo {
+     text-shadow: 1px 1px 2px black, 0 0 1em red;
+     color: white;
+     font-size: 2em;
+     text-decoration: none;
+     margin-left: 200px;
+     cursor: pointer;
+     float: left;
+   }
+
+   ul.header-nav {
+     float: right;
+     margin-right: 200px;
+
+     li.log-in {
+       display: inline-block;
+       width: 50px;
+       margin-top: -5px;
+       font-size: 1em;
+     }
+     a {
+       color: rgba(0, 98, 255, 0.87);
+       text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.85);
+       text-decoration: none;
+     }
+   }
+}

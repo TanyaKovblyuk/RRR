@@ -1,0 +1,42 @@
+form.login-form { padding-top: 10px; }
+
+  .login-form input {
+    width: 130px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px groove rgba(96, 125, 139, 0.85);
+    height: 20px;
+    padding-left: 5px;
+    font-size: 14px;
+  }
+
+  .login-form  input.session_remember_me {
+    width: 15px;
+    cursor: pointer;
+    float: left;
+    margin-top: -3px;
+  }
+
+  .login-form  label.remember-label {
+    font-size: 14px;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .login-form  button {
+    margin-top: -10px;
+    width: 90px;
+    height: 25px;
+    clear: both;
+    border-radius: 10px;
+    background: rgba(63, 81, 181, 0.43);
+    cursor: pointer;
+    border-width: 2px;
+  }
+
+  .error {
+    font-size: 12px;
+    color: red;
+    margin-left: 5px;
+    margin-bottom: 3px;
+  }

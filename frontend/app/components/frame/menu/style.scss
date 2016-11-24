@@ -1,0 +1,62 @@
+li.dropdown {
+  width: 90px;
+  height: 20px;
+  margin-top: -10px;
+  padding: 2px 0px 2px 8px;
+  color: rgba(55, 0, 255, 0.84);
+  cursor: pointer;
+}
+
+li.dropdown:hover {
+  background-color: rgba(17, 219, 221, 0.74);
+  border: 1px groove #ccc;
+}
+
+.dropdown span {
+  float: left;
+  padding-top: 3px;
+  padding-right: 5px;
+}
+
+.dropdown img {
+  width: 20px;
+  height: 20px;
+}
+
+.dropdown div.dropdown-up {
+  background: url('up.png') no-repeat;
+  background-size: 100%;
+  //display: none;
+  width: 30px;
+  height: 30px;
+  margin-left: 25px;
+  margin-top: -8px;
+}
+
+.dropdown-menu ul {
+  position: absolute;
+  display: none;
+  padding-top: 2px;
+  width: 90px;
+  margin-left: -5px;
+  margin-top: 0px;
+  border: 1px solid #ccc;
+  background-color: rgba(170, 209, 221, 0.24);
+}
+
+.dropdown-menu a { text-decoration: none; }
+
+.dropdown-menu li {
+  //display: none;
+  width: 80px;
+  padding: 5px 0px 5px 4px;
+  margin-bottom: 2px;
+  margin-left: 2px;
+  display: block;
+  color: rgba(0, 98, 255, 0.87);
+  background-color: rgba(170, 221, 17, 0.41);
+  border: 1px groove rgba(204, 204, 204, 0.42);
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover { background-color: rgba(170, 209, 221, 0.86); }

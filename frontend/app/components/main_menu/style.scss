@@ -1,0 +1,20 @@
+div.main-menu {
+  margin-left: 0px;
+
+  a { text-decoration: none; }
+
+  ul li {
+    display: block;
+    cursor: pointer;
+    width: 110px;
+    color: #000;
+    text-shadow: 1px 1px 9px black, 0 0 20em rgba(255, 0, 0, 0.3);
+    padding: 7px 6px 7px 15px;
+    margin-bottom: 2px;
+    border-radius: 3px;
+  }
+
+  ul li:hover {
+    background: rgba(37, 114, 84, 0.35);
+  }
+}

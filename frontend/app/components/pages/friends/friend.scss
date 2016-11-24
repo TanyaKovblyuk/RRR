@@ -1,0 +1,50 @@
+div.show-all-friends {
+  margin: auto;
+  width: 720px;
+  margin-bottom: 20px;
+
+  .friends {
+    width: 100%;
+  }
+
+  hr.bottom {
+    clear: both;
+  }
+
+  h1 {
+    font-size: 22px;
+    color: blue;
+    margin-left: 20px;
+  }
+
+  img {
+    width: 100px;
+    height: 100px;
+  }
+
+  figure {
+    margin: 0px;
+    padding: 2px;
+    margin-top: -10px;
+  }
+
+  a {
+    font-size: 20px;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .one-friend {
+    margin: auto;
+    width: 90px;
+    padding: 10px 20px 10px 5px;
+    border: 2px groove rgba(96, 125, 139, 0.36);
+    background: rgba(139, 133, 96, 0.5);
+    height: 100px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    float: left;
+  }
+}
