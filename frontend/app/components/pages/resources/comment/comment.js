@@ -6,18 +6,19 @@ import MinAvatar from '../image/min_avatar';
 export default class Comment extends React.Component {
   handleDelete = (event) => {
     event.preventDefault();
-    $.ajax({
-      type: "DELETE",
-      url: "users/"+this.props.author.id+"/comments/"+this.props.comment.id,
-      success: (response) => {
-        if (response.status) {this.props.addContactComments(response.comments)}
-      },
+    axios({
+      method: "DELETE",
+      url: "/be/users/"+this.props.author.id+"/comments/"+this.props.comment.id
     })
+    .then((response) => { this.props.setComments(response.data.comments) })
   }
+
   render() {
     return (
       <div className="comment">
-        < MinAvatar img={this.props.img} user={this.props.author} />
+        < MinAvatar img={this.props.img}
+                    user={this.props.author}
+                    setProfile={this.props.setProfile} />
         <a href={"/users/"+this.props.author.id}
            className="author"
            data-remote="true">

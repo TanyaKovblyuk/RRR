@@ -1,4 +1,6 @@
 class CommentsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def create
     Comment.create(post_params)
     user = User.find_by(id: Post.find_by(id: params[:post_id]).user_id)
@@ -6,7 +8,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = current_user.comments.find_by(id: params[:id])
+    comment = Comment.find_by(id: params[:id])
     user = User.find_by(id: Post.find_by(id: comment.post_id).user_id)
     comment.destroy
     comments user

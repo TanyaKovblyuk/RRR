@@ -2,47 +2,41 @@ import React, { PropTypes } from 'react';
 import './new.scss'
 
 export default class NewUser extends React.Component {
-  render() { return ( <UserForm /> ); }
-};
+  constructor(props) {
+    super(props);
+    this.state = {name: '',
+                  surname: '',
+                  gender: '',
+                  email: '',
+                  password: '',
+                  password_confirmation: '',
+                  errors: {},
+                  status: true};
+  }
 
-var UserForm = React.createClass({
-  getInitialState: function() {
-    return {
-      name: '',
-      surname: '',
-      gender: '',
-      email: '',
-      password: '',
-      password_confirmation: '',
-      errors: {},
-      status: true
-    };
-  },
-
-  fieldChange: function(name, event) {
+  fieldChange = (name, event) => {
     this.setState({ [''+name]: event.target.value });
-  },
-  radioClick: function(event) {
+  }
+  radioClick = (event) => {
     this.setState({ 'gender': event.target.value });
-  },
-  handleSend: function(event) {
+  }
+  handleSend = (event) => {
     event.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: '/users',
-      data: {'name': this.state.name,
+    axios.post('/be/users',
+            {'name': this.state.name,
              'surname': this.state.surname,
              'gender': this.state.gender,
              'email': this.state.email,
              'password': this.state.password,
-             'password_confirmation': this.state.password_confirmation,},
-      success: (response) => { console.log('it worked!', response)
-      response.status==false? this.setState({ errors: response.errors }) : ""
-      this.setState({ status: response.status })},
+             'password_confirmation': this.state.password_confirmation,})
+    .then((response) => {
+      console.log(response);
+      response.data.status==false? this.setState({ errors: response.data.errors }) : "";
+      this.setState({ status: response.data.status })
     })
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div className="registration">
         <form data-remote="true">
@@ -83,14 +77,14 @@ var UserForm = React.createClass({
 
 
           {this.state.status == true? "" : this.state.errors.map(function(name, index){
-            return < ErrorMsg msg={name} />;})}
+            return < ErrorMsg msg={name} key={index} />;})}
 
-          <button name="button" onClick={this.handleSend}>It's ok!</button>
+          <button name="button" onClick={this.handleSend}>Its ok!</button>
         </form>
       </div>
-    );
-  },
-});
+    )
+  }
+};
 
 var ErrorMsg = React.createClass({
   render: function() {

@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token, :only => :create
-  
+  skip_before_filter :verify_authenticity_token
+
   def new
   end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       log_in user
       params[:remember_me] == '1' ? remember(user) : forget(user)
       respond_to do |format|
-        format.json do render :json => {:status => true, :data => data(user)} end
+        format.json do render :json => {:status => true, :user => user} end
       end
     else
       respond_to do |format|

@@ -2,7 +2,7 @@ require 'uri'
 
 module UsersHelper
   def get_avatar user
-    user.images.order('id DESC').all.each {|img| return img.image.avatar.url if img.avatar}
+    user.images.order('id DESC').all.each {|img| return ('/be'+img.image.avatar.url) if img.avatar}
     nil
   end
 
@@ -11,7 +11,7 @@ module UsersHelper
     posts = Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).reverse.map do |post|
       {post: post,
        img: if !Image.find_by(post_id: post.id).nil?
-              Image.find_by(post_id: post.id).image.post.url
+              ('/be'+Image.find_by(post_id: post.id).image.post.url)
             else ''
             end }
     end
@@ -20,8 +20,6 @@ module UsersHelper
      :posts => posts,
      :comments => comments,
      :friends => (get_nine_friends user),
-     :user_id => user.id,
-     :current_id => current_user.id,
      :statistics => {:posts => user.posts.count,
                      :images => user.images.count,
                      :comments => user.comments.count,
@@ -29,10 +27,10 @@ module UsersHelper
   end
 
   def posts user
-    posts = user.posts.last(10+params[:post].to_i).reverse.map do |post|
+    posts = user.posts.last(10).reverse.map do |post|
       {post: post,
        img: if !Image.find_by(post_id: post.id).nil?
-              Image.find_by(post_id: post.id).image.post.url
+              ('/be'+Image.find_by(post_id: post.id).image.post.url)
             else ''
             end }
     end

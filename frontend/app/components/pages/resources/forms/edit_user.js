@@ -16,9 +16,9 @@ export default class EditUser extends React.Component {
   }
   handleName = (event) => {
     event.preventDefault();
-    $.ajax({
-      type: "PATCH",
-      url: '/users/'+this.props.id,
+    axios({
+      method: "PATCH",
+      url: '/be/users/'+this.props.user.id,
       data: {'name': this.state.name,
              'surname': this.state.surname},
       success: (response) => {
@@ -29,12 +29,12 @@ export default class EditUser extends React.Component {
   }
   handlePass = (event) => {
     event.preventDefault();
-    $.ajax({
-      type: "POST",
-      url: '/edit_pass',
+    axios({
+      method: "POST",
+      url: '/be/edit_pass',
       data: {'old_password': this.state.old_password,
              'password': this.state.password,
-             'password_confirmation': this.state.assword_confirmation},
+             'password_confirmation': this.state.password_confirmation},
       success: (response) => {
         if (response.status) {this.props.addContactData(response.data);
                               this.props.addContactPage('profile')}

@@ -7,18 +7,18 @@ import Search from './search/form';
 
 export default class Header extends React.Component {
   render() {
+    var id = this.props.id
     return (
       <div className="header">
-        <a href={this.props.id=='0' ? "/" : "/users/"+this.props.id } data-remote="true" id="logo">Ant-eater</a>
+        <a href={id=='0' ? "/" : "/users/"+id } data-remote="true" id="logo">Ant-eater</a>
 
-        <Search />
+        {id!='0'? <Search /> : ''}
 
         <nav>
           <ul className="header-nav">
-            {this.props.id=='0' ? < Reload /> : < Dropdown id={this.props.id}
-                                                           surname={this.props.current_user.surname}
-                                                           addContactId={this.props.addContactId}
-                                                           addContactPage={this.props.addContactPage} />}
+            {id=='0' ? < Reload /> : < Dropdown id={id}
+                                                surname={this.props.current_user.surname}
+                                                setCurrentUser={this.props.setCurrentUser} />}
           </ul>
         </nav>
       </div>

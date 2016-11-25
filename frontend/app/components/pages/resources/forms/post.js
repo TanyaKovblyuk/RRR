@@ -17,17 +17,12 @@ export default class NewPost extends React.Component {
   handlePost = (event) => {
     event.preventDefault();
     this.state.text.length>5?
-      $.ajax({
-        type: "POST",
-        url: '/users/'+this.props.id+'/posts',
-        data: {'text': this.state.text},
-        success: (response) => {
-          if (response.status) {
-            this.props.addContactPosts(response.posts)
-            this.props.addContactComments(response.comments)
-          }
-        },
-      }) : ''
+      axios({
+        method: "POST",
+        url: '/be/users/'+this.props.id+'/posts',
+        data: {'text': this.state.text}
+      })
+      .then((response) => { this.props.setPosts(response.data.posts) }) : ''
     this.setState({ show: false })
     this.setState({ text: '' })
   }

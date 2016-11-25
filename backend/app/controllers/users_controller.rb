@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def new
     if logged?
       @data = {id: current_user.id.to_s, data: data(current_user)} if logged?
@@ -13,6 +15,9 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       UserMailer.account_activation(@user).deliver_now
+      respond_to do |format|
+        format.json do render :json => {status: true, user: @user} end
+      end
     else
       respond_to do |format|
         format.json do render :json => {status: false, errors: @user.errors.full_messages} end
@@ -75,7 +80,7 @@ class UsersController < ApplicationController
     friends = user.all_friends.map {|friend| {user: friend,
                                                   avatar: (get_avatar friend)}}
     respond_to do |format|
-      format.json do render :json => {status: true, data: {friends: friends}} end
+      format.json do render :json => {status: true, friends: friends} end
     end
   end
 

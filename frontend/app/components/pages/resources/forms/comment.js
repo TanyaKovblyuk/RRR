@@ -17,15 +17,13 @@ export default class NewComment extends React.Component {
   handleComment = (event) => {
     event.preventDefault();
     this.state.text.length>0?
-      $.ajax({
-        type: "POST",
-        url: '/users/'+this.props.id+'/comments',
+      axios({
+        method: "POST",
+        url: '/be/users/'+this.props.id+'/comments',
         data: {'text': this.state.text,
-               'post_id': this.props.post_id },
-        success: (response) => {
-          response.status==true ? this.props.addContactComments(response.comments) : ''
-        },
-      }) : ''
+               'post_id': this.props.post_id }
+      })
+      .then((response) => { this.props.setComments(response.data.comments) }) : ''
     this.setState({ show: false })
     this.setState({ text: '' })
   }

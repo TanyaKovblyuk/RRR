@@ -6,11 +6,7 @@ require("url-loader?mimetype=image/png!./title.png");
 require("url-loader?mimetype=image/png!./title2.png");
 
 export default class Home extends React.Component {
-  render() { return ( <User /> ); }
-};
-
-var User = React.createClass({
-  render: function() {
+  render() {
     return (
       <div className="root-page">
         <div className="root-content">
@@ -21,5 +17,5 @@ var User = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+};

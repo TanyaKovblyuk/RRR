@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
   def index
     respond_to do |format|
       format.json do render :json => {status: true,
-                                      data: {images: (current_user.images.map {|img| img.image.avatar.url})}} end
+                                      images: (current_user.images.map {|img| img.image.avatar.url})} end
     end
   end
 end

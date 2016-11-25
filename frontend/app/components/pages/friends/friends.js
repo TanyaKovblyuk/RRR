@@ -5,14 +5,8 @@ import AvatarIco from '../resources/image/ico_list';
 
 export default class Friends extends React.Component{
   navVisit = (id, event) => {
-    $.ajax({
-      type: "GET",
-      url: "/users/"+id,
-      success: (response) => {
-        if (response.status) { this.props.addContactPage('profile'),
-                               this.props.addContactData(response.data)}
-      },
-    })
+    axios.get('/be/users/'+id)
+    .then((response) => { this.props.setProfile(response.data.data) })
   }
 
   render() {

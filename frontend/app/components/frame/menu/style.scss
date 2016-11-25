@@ -12,15 +12,19 @@ li.dropdown:hover {
   border: 1px groove #ccc;
 }
 
-.dropdown span {
+.dropdown p>span {
   float: left;
   padding-top: 3px;
   padding-right: 5px;
 }
 
-.dropdown img {
-  width: 20px;
-  height: 20px;
+.dropdown .img {
+  background: url('setting.png') no-repeat;
+  background-size: 100%;
+  width: 15px;
+  height: 15px;
+  margin-left: 60px;
+  margin-top: -20px;
 }
 
 .dropdown div.dropdown-up {
@@ -30,7 +34,7 @@ li.dropdown:hover {
   width: 30px;
   height: 30px;
   margin-left: 25px;
-  margin-top: -8px;
+  margin-top: 15px;
 }
 
 .dropdown-menu ul {

@@ -10,26 +10,25 @@ export default class Login extends React.Component {
                   error: ''};
   }
 
-  emailChange(event){
+  emailChange = (event) => {
     this.setState({ email: event.target.value });
   }
-  passwordChange(event){
+  passwordChange = (event) => {
     this.setState({ password: event.target.value });
   }
-  check(event){
+  check = (event) => {
     this.setState({ checked: !(this.state.checked) });
   }
-  handleLogin(event){
+  handleLogin = (event) => {
     event.preventDefault();
     axios.post('/be/login', {
       email: this.state.email,
       password: this.state.password,
       remember_me: (this.state.checked? '1' : '0')
     })
-    .then(function (response) { console.log('ggg', response);
-      response.status==true ? this.props.addContactData(response.data) : this.setState({error: "Invalid email/password"})
-      if (response.status==true) {this.props.addContactId(String(response.data.current_id))
-                                  this.props.addContactPage('profile');}
+    .then((response) => {
+      if (response.data.status==true) {this.props.setCurrentUser(response.data.user)}
+      else {this.setState({error: "Invalid email/password"})}
     })
   }
   render() {

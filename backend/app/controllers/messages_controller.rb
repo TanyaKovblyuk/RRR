@@ -1,4 +1,6 @@
 class MessagesController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+  
   def index
     @messages = Message.where('CAST(receiver_id AS text) LIKE ?', current_user.id.to_s).order('id DESC')
     respond_to do |format|

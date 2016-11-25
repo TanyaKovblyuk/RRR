@@ -1,9 +1,11 @@
 require 'uri'
 
 class PostsController < ApplicationController
+  skip_before_filter :verify_authenticity_token
+
   def add_next
-    @user = User.find_by(id: params[:user_id].to_i)
-    @posts = @user.posts.last(10+params[:post].to_i).reverse
+    @user = User.find_by(id: params[:user_id])
+    @posts = @user.posts.last(10+params[:post]).reverse
   end
 
   def create
@@ -13,13 +15,14 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    current_user.posts.find_by(id: params[:id]).destroy
-    posts current_user
+    Post.find_by(id: params[:id]).destroy
+    user = User.find_by(id: params[:user_id])
+    posts user
   end
 
   def index
     respond_to do |format|
-      format.json do render :json => {status: true, data: {posts: news}} end
+      format.json do render :json => {status: true, posts: news} end
     end
   end
 
