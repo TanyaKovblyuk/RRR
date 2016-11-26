@@ -22,5 +22,6 @@ Rails.application.routes.draw do
     resources :messages
     patch :friends, on: :member
     get :friends, on: :member
+    get :propose, on: :member
   end
 end

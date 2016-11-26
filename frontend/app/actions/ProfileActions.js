@@ -5,13 +5,6 @@ export function setProfile(profile) {
   }
 }
 
-export function setFriends(users) {
-  return {
-    type: 'SET_FRIENDS',
-    payload: users
-  }
-}
-
 export function setPosts(posts) {
   return {
     type: 'SET_POSTS',
@@ -23,5 +16,12 @@ export function setComments(comments) {
   return {
     type: 'SET_COMMENTS',
     payload: comments
+  }
+}
+
+export function setStatus(status) {
+  return {
+    type: 'SET_STATUS',
+    payload: status
   }
 }

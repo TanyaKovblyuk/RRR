@@ -8,7 +8,7 @@ export default class UserInfo extends React.Component {
         <p className="profile-name">{this.props.user.name+' '+this.props.user.surname}</p>
         <hr />
         <p className="activity">
-          User's activity:
+          Users activity:
           friends {this.props.statistics.friends};
           posts {this.props.statistics.posts};
           images {this.props.statistics.images};

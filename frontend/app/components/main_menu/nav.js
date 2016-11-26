@@ -18,6 +18,9 @@ export default class Nav extends React.Component {
         case 'friends':
           return this.props.setFriends(response.data.friends)
 
+        case 'offer':
+          return this.props.setFriends(response.data.friends)
+
         case 'messages':
           return this.props.setMessages(response.data.messages)
 
@@ -43,6 +46,9 @@ export default class Nav extends React.Component {
           </a>
           <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/friends", 'friends')}>
             <li>Friends</li>
+          </a>
+          <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/propose", 'offer')}>
+            <li>Offer friendship</li>
           </a>
           <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/images", 'gallery')}>
             <li>Gallery</li>

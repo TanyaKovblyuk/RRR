@@ -3,6 +3,8 @@ import React, { PropTypes } from 'react';
 import Avatar from '../resources/image/avatar';
 import AvatarIco from '../resources/image/ico_list';
 import UserInfo from '../resources/user/info';
+import UserActions from '../resources/user/actions';
+import NewMessage from '../resources/forms/message';
 import NewPost from '../resources/forms/post';
 import Post from '../resources/post/post';
 import NewComment from '../resources/forms/comment';
@@ -11,6 +13,14 @@ import Comment from '../resources/comment/comment';
 import './style.scss'
 
 export default class Profile extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {show: false};
+  }
+  addContactGetShow = (contact) => {
+    this.setState({show: contact})
+  }
+
   render() {
     var profile = this.props.profile
     return (
@@ -18,6 +28,14 @@ export default class Profile extends React.Component{
         <div className="profile-static">
           < Avatar src={profile.avatar} />
           <hr />
+          < UserActions id={this.props.id}
+                        user_id={profile.user.id}
+                        is_friend={profile.is_friend}
+                        setStatus={this.props.setStatus}
+                        ContactGetShow={this.addContactGetShow} />
+          < NewMessage id={profile.user.id}
+                       show={this.state.show}
+                       ContactGetShow={this.addContactGetShow} />
           <div className="friends">
             <p className="friends-h1">Friends<a>Show all</a></p>
             {(profile.friends==undefined? [] : profile.friends).map(function(friend, index) {

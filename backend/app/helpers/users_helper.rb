@@ -19,11 +19,12 @@ module UsersHelper
      :avatar => (get_avatar user),
      :posts => posts,
      :comments => comments,
+     :is_friend => (current_user.inverse_friends.all.include?(user)),
      :friends => (get_nine_friends user),
      :statistics => {:posts => user.posts.count,
                      :images => user.images.count,
                      :comments => user.comments.count,
-                     :friends => user.friends.count}}
+                     :friends => user.all_friends.count}}
   end
 
   def posts user
@@ -55,10 +56,23 @@ module UsersHelper
   end
 
   def get_nine_friends user
-    (user.all_friends.count < 10 ? user.all_friends : user.all_friends.limit(9)).map do |friend|
+    friends = confirmed_friends user
+    (friends.count < 10 ? friends : friends.limit(9)).map do |friend|
       {avatar: (get_avatar friend),
        user: friend}
     end
+  end
+
+  def confirmed_friends user
+    ids = user.friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id} +
+          user.inverse_friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id}
+    User.where('CAST(id AS INT) IN (?)', ids)
+  end
+
+  def likely_friends user
+    ids = user.friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id} +
+          user.inverse_friends.where('CAST(confirmed AS text) LIKE ?', "false").map {|men| men.id}
+    User.where('CAST(id AS INT) IN (?)', ids)
   end
 
   def is_friend? user

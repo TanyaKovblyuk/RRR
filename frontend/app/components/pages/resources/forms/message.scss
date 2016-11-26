@@ -1,0 +1,36 @@
+div.send-message {
+  position: absolute;
+  width: 500px;
+  min-height: 350px;
+  background: rgba(63, 119, 181, 0.59);
+  border: 2px solid rgb(17, 28, 72);
+  margin-top: -160px;
+  border-radius: 10px;
+  display: none;
+
+  .message-create-body {
+    margin: 20px;
+    max-width: 445px;
+    width: 445px;
+    height: 260px;
+    background: rgba(255, 255, 255, 0.91);
+    border: 2px solid rgb(17, 28, 72);
+    padding: 5px;
+    font-size: 14px;
+    margin-bottom: 0px;
+  }
+
+  button {
+    width: 150px;
+    margin-left: 170px;
+    height: 30px;
+    border-radius: 35px;
+    background: rgba(11, 18, 76, 0.97);
+    border: 2px solid rgba(76, 175, 80, 0.77);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 10px;
+    margin-top: -10px;
+  }
+}

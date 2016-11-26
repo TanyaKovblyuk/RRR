@@ -28,6 +28,7 @@ class SPAView extends React.Component{
     const { setId } = this.props.userActions
     const { setCurrentUser } = this.props.userActions
     const { setProfile } = this.props.profileActions
+    const { setStatus } = this.props.profileActions
     const { setPosts } = this.props.profileActions
     const { setComments } = this.props.profileActions
     const { setImages } = this.props.imagesActions
@@ -54,7 +55,8 @@ class SPAView extends React.Component{
                         id={id}
                         setProfile={setProfile}
                         setPosts={setPosts}
-                        setComments={setComments} />
+                        setComments={setComments}
+                        setStatus={setStatus} /><Friends friends={this.props.friends} setProfile={setProfile}/>
             </div>
           </div>
         </div>

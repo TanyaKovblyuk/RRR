@@ -77,32 +77,55 @@ class UsersController < ApplicationController
 
   def friends
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = user.all_friends.map {|friend| {user: friend,
+    friends = (confirmed_friends user).map {|friend| {user: friend,
                                                   avatar: (get_avatar friend)}}
     respond_to do |format|
       format.json do render :json => {status: true, friends: friends} end
     end
   end
 
+  def propose
+    user = User.find_by(id: (params[:id]||current_user.id))
+    friends = (likely_friends user).map {|friend| {user: friend,
+                                                   avatar: (get_avatar friend)}}
+    respond_to do |format|
+      format.json do render :json => {status: true, friends: friends} end
+    end
+  end
+
   def create_friend
-    relation = FriendRelation.new(friend_relation_params)
-    relation.friend_id = current_user.id
-    relation.save
+    user = User.find_by(id: (params[:id]||current_user.id))
+    if current_user.friends.all.include?(user)
+      FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                            CAST(friend_id AS text) LIKE ?', current_user.id.to_s, user.id.to_s)
+      .all[0].update_attribute(confirmed: true)
+    else
+      relation = FriendRelation.create(user_id: params[:id], friend_id: current_user.id)
+    end
+    respond_to do |format|
+      format.json do render :json => {is_friend: true} end
+    end
   end
 
   def destroy_friend
-    @user = User.find_by(id: params[:user][:user_id])
-    relation = (current_user.all_relations.find_by(friend_id: @user.id)||current_user.all_relations.find_by(user_id: @user.id))
-    relation.destroy
+    user = User.find_by(id: params[:id])
+    relation = (FriendRelation.where('CAST(user_id AS text) LIKE ?', user.id.to_s)
+                              .where('CAST(friend_id AS text) LIKE ?', current_user.id.to_s))
+    unless relation.count==0
+      relation.each{|record| record.delete}
+    else
+      relation = (FriendRelation.where('CAST(user_id AS text) LIKE ?', current_user.id.to_s)
+                                .where('CAST(friend_id AS text) LIKE ?', user.id.to_s))
+      relation.each{|record| record.delete}
+    end
+    respond_to do |format|
+      format.json do render :json => {is_friend: false} end
+    end
   end
 
   private
     def user_params
       params.permit(:name, :surname, :gender, :email, :password, :password_confirmation)
-    end
-
-    def friend_relation_params
-      params.require(:friend_relation).permit(:user_id)
     end
 
     def validation_hash
