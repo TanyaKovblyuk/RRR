@@ -8,6 +8,7 @@ import * as imagesActions from '../actions/ImagesActions';
 import * as profileActions from '../actions/ProfileActions';
 import * as newsActions from '../actions/NewsActions';
 import * as friendsActions from '../actions/FriendsActions';
+import * as messagesActions from '../actions/MessagesActions';
 //------------------------------------------------------------------------------
 import Login from '../components/session/login';
 import Header from '../components/frame/header';
@@ -20,6 +21,7 @@ import News from '../components/pages/news/posts';
 import Friends from '../components/pages/friends/friends';
 import EditUser from '../components/pages/resources/forms/edit_user';
 import Gallery from '../components/pages/gallery/show';
+import Messages from '../components/pages/messages/index';
 //------------------------------------------------------------------------------
 import './style.scss'
 //------------------------------------------------------------------------------
@@ -34,11 +36,15 @@ class SPAView extends React.Component{
     const { setImages } = this.props.imagesActions
     const { setNews } = this.props.newsActions
     const { setFriends } = this.props.friendsActions
+    const { setMessages } = this.props.messagesActions
     var id = this.props.current_user.id
     var current_user = this.props.current_user
     return (
       <div>
-        < Header id={id} current_user={current_user} setCurrentUser={setCurrentUser} />
+        < Header id={id}
+                 current_user={current_user}
+                 setCurrentUser={setCurrentUser}
+                 setFriends={setFriends} />
         <div className="main-content">
 
           <div className="content">
@@ -48,7 +54,8 @@ class SPAView extends React.Component{
                                                                              setProfile={setProfile}
                                                                              setNews={setNews}
                                                                              setImages={setImages}
-                                                                             setFriends={setFriends} />}
+                                                                             setFriends={setFriends}
+                                                                             setMessages={setMessages} />}
             </div>
             <div className="yield_pages">
               < Profile profile={this.props.profile}
@@ -56,7 +63,7 @@ class SPAView extends React.Component{
                         setProfile={setProfile}
                         setPosts={setPosts}
                         setComments={setComments}
-                        setStatus={setStatus} /><Friends friends={this.props.friends} setProfile={setProfile}/>
+                        setStatus={setStatus} /><Friends friends={this.props.friends} setProfile={setProfile} />
             </div>
           </div>
         </div>
@@ -65,12 +72,18 @@ class SPAView extends React.Component{
     );
   }
 };
-//< Profile profile={this.props.profile} id={id} setProfile={setProfile}/>
+// < Profile profile={this.props.profile}
+//           id={id}
+//           setProfile={setProfile}
+//           setPosts={setPosts}
+//           setComments={setComments}
+//           setStatus={setStatus} />
 //<Home />
 //<EditUser user={current_user} />
 //<Gallery images={this.props.images} />
-//<News posts={this.props.news} setProfile={setProfile}/>
-//<Friends friends={this.props.friends} setProfile={setProfile}/>
+//<News posts={this.props.news} setProfile={setProfile} />
+//<Friends friends={this.props.friends} setProfile={setProfile} />
+//<Messages messages={this.props.messages} setProfile={setProfile} />
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
@@ -78,7 +91,8 @@ function mapStateToProps (state) {
     images: state.images.images,
     profile: state.profile,
     news: state.news.news,
-    friends: state.friends.friends
+    friends: state.friends.friends,
+    messages: state.messages.messages,
   }
 }
 
@@ -88,7 +102,8 @@ function mapDispatchToProps(dispatch) {
     imagesActions: bindActionCreators(imagesActions, dispatch),
     profileActions: bindActionCreators(profileActions, dispatch),
     newsActions: bindActionCreators(newsActions, dispatch),
-    friendsActions: bindActionCreators(friendsActions, dispatch)
+    friendsActions: bindActionCreators(friendsActions, dispatch),
+    messagesActions: bindActionCreators(messagesActions, dispatch)
   }
 }
 //------------------------------------------------------------------------------

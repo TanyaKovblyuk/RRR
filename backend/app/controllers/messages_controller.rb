@@ -2,9 +2,16 @@ class MessagesController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def index
-    @messages = Message.where('CAST(receiver_id AS text) LIKE ?', current_user.id.to_s).order('id DESC')
+    msgs = []
+    Message.where('CAST(receiver_id AS text) LIKE ?', current_user.id.to_s).order('id DESC')
+    .all.map do |msg|
+      user = User.find_by(id: msg.user_id)
+      msgs << {img: (get_avatar user),
+               user: user.slice(:name, :surname, :id),
+               message: msg}
+    end
     respond_to do |format|
-      format.js
+      format.json do render :json => {status: false, messages: msgs} end
     end
   end
 

@@ -2,11 +2,6 @@ class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
   def new
-    if logged?
-      @data = {id: current_user.id.to_s, data: data(current_user)} if logged?
-    else
-     @data = {id: '0', data: {current_user: User.new()}}
-    end
   end
 
   def create
@@ -31,7 +26,21 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
+  def rating
+    item = Post.find_by(id: params[:post_id]) unless params[:post_id].nil?
+    item = Comment.find_by(id: params[:comment_id]) unless params[:comment_id].nil?
+    begin
+      item.ratings.create(:user_id => item.user_id,
+                       :estimator_id => current_user.id,
+                       (params[:like]? :like : :dislike) => 1)
+    rescue => error
+      puts "Error: duplicate key"
+    end
+    rating = {like: 0, dislike: 0}
+    item.ratings.map{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
+    respond_to do |format|
+      format.json do render :json => {status: error.nil?, rating: rating} end
+    end
   end
 
   def update
@@ -62,23 +71,25 @@ class UsersController < ApplicationController
   end
 
   def search
-    line = params[:user][:name]
-    @search = []
+    line = params[:line]
+    search = []
     User.all.each do |user|
-      @search<<user if (line.include?user.name)||
+      search<<user if (line.include?user.name)||
                       (line.include?user.surname)||
                       (user.name.include?line)||
                       (user.name.include?line)
     end
+    friends = search.map {|friend| {user: {id: friend.id, name: friend.name+' '+friend.surname},
+                                    avatar: (get_avatar friend)}}
     respond_to do |format|
-      format.js
+      format.json do render :json => {status: true, friends: friends} end
     end
   end
 
   def friends
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = (confirmed_friends user).map {|friend| {user: friend,
-                                                  avatar: (get_avatar friend)}}
+    friends = (confirmed_friends user).map {|friend| {user: friend.slice(:name, :surname, :id),
+                                                      avatar: (get_avatar friend)}}
     respond_to do |format|
       format.json do render :json => {status: true, friends: friends} end
     end
@@ -86,7 +97,7 @@ class UsersController < ApplicationController
 
   def propose
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = (likely_friends user).map {|friend| {user: friend,
+    friends = (likely_friends user).map {|friend| {user: friend.slice(:name, :surname, :id),
                                                    avatar: (get_avatar friend)}}
     respond_to do |format|
       format.json do render :json => {status: true, friends: friends} end

@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import './style.scss'
 
 import MinAvatar from '../image/min_avatar';
+import Rating from '../rating/show';
 
 export default class Comment extends React.Component {
   handleDelete = (event) => {
@@ -32,7 +33,10 @@ export default class Comment extends React.Component {
         <a data-remote="true"
            style={{display: (this.props.current? "block" : "none")}}
            className="edit-comment"
-           onClick={this.handleDelete}>Delete</a>
+           onClick={this.handleDelete}>
+           Delete
+        </a>
+        <Rating rating={this.props.rating} item={'comment'} id={this.props.comment.id} />
       </div>
     );
   }

@@ -26,20 +26,6 @@ class PostsController < ApplicationController
     end
   end
 
-  def like
-    (@post = Post.find_by(id: params[:id]))
-    .ratings.create(user_id: params[:user_id],
-                    estimator_id: current_user.id,
-                    like: 1)
-  end
-
-  def dislike
-    (@post = Post.find_by(id: params[:id]))
-    .ratings.create(user_id: params[:user_id],
-                    estimator_id: current_user.id,
-                    dislike: 1)
-  end
-
   private
     def post_params
       params.permit(:text)

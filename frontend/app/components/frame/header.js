@@ -12,7 +12,7 @@ export default class Header extends React.Component {
       <div className="header">
         <a href={id=='0' ? "/" : "/users/"+id } data-remote="true" id="logo">Ant-eater</a>
 
-        {id!='0'? <Search /> : ''}
+        {id!='0'? <Search setFriends={this.props.setFriends} /> : ''}
 
         <nav>
           <ul className="header-nav">

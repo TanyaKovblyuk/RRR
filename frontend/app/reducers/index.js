@@ -4,11 +4,13 @@ import images from './images'
 import profile from './profile'
 import news from './news'
 import friends from './friends'
+import messages from './messages'
 
 export default combineReducers({
   current_user,
   images,
   profile,
   news,
-  friends
+  friends,
+  messages
 })

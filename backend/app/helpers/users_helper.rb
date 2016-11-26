@@ -6,16 +6,23 @@ module UsersHelper
     nil
   end
 
+  def search_rating item
+    rating = {like: 0, dislike: 0}
+    item.ratings.map{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
+    rating
+  end
+
   def data(user)
     comments = response_comment user
     posts = Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).reverse.map do |post|
       {post: post,
+       rating: (search_rating post),
        img: if !Image.find_by(post_id: post.id).nil?
               ('/be'+Image.find_by(post_id: post.id).image.post.url)
             else ''
             end }
     end
-    {:user => user,
+    {:user => user.slice(:name, :surname, :id),
      :avatar => (get_avatar user),
      :posts => posts,
      :comments => comments,
@@ -30,6 +37,7 @@ module UsersHelper
   def posts user
     posts = user.posts.last(10).reverse.map do |post|
       {post: post,
+       rating: (search_rating post),
        img: if !Image.find_by(post_id: post.id).nil?
               ('/be'+Image.find_by(post_id: post.id).image.post.url)
             else ''
@@ -43,8 +51,9 @@ module UsersHelper
 
   def build_comments comments
     comments.map do |comment|
-      {user: User.find_by(id: comment.user_id),
+      {user: User.find_by(id: comment.user_id).slice(:name, :surname, :id),
        comment: comment,
+       rating: (search_rating comment),
        avatar: (get_avatar User.find_by(id: comment.user_id))}
     end
   end
@@ -59,7 +68,7 @@ module UsersHelper
     friends = confirmed_friends user
     (friends.count < 10 ? friends : friends.limit(9)).map do |friend|
       {avatar: (get_avatar friend),
-       user: friend}
+       user: friend.slice(:name, :surname, :id)}
     end
   end
 

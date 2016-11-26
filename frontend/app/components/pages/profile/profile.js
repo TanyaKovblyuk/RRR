@@ -60,6 +60,7 @@ export default class Profile extends React.Component{
                                current={this.props.id==profile.user.id}
                                src={post.img}
                                post={post.post}
+                               rating={post.rating}
                                key={post.post.id}
                                setProfile={this.props.setProfile}
                                setPosts={this.props.setPosts} />
@@ -67,6 +68,7 @@ export default class Profile extends React.Component{
                   return (
                     < Comment comment={comment.comment}
                               author={comment.user}
+                              rating={comment.rating}
                               current={this.props.id==comment.user.id}
                               setProfile={this.props.setProfile}
                               setComments={this.props.setComments}

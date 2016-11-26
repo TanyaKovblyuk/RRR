@@ -1,10 +1,11 @@
 div.send-message {
-  position: absolute;
+  position: fixed;
+  top: 60px;
   width: 500px;
   min-height: 350px;
+  left: 35vw;
   background: rgba(63, 119, 181, 0.59);
   border: 2px solid rgb(17, 28, 72);
-  margin-top: -160px;
   border-radius: 10px;
   display: none;
 

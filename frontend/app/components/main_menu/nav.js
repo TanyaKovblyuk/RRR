@@ -38,7 +38,7 @@ export default class Nav extends React.Component {
           <a onClick={this.navChange.bind(this, "/users/"+this.props.id, 'profile')}>
             <li>Profile</li>
           </a>
-          <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/messages", 'message')}>
+          <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/messages", 'messages')}>
             <li>Messages</li>
           </a>
           <a onClick={this.navChange.bind(this, "/users/"+this.props.id+"/posts", 'news')}>

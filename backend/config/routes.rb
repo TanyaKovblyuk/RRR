@@ -12,12 +12,10 @@ Rails.application.routes.draw do
   get    '/login',              to: 'sessions#new', :defaults => { :format => 'json' }
   post   '/login',              to: 'sessions#create', :defaults => { :format => 'json' }
   delete '/logout',             to: 'sessions#destroy', :defaults => { :format => 'json' }
+  post   '/rating',             to: 'users#rating', :defaults => { :format => 'json' }
   resources :users, :defaults => { :format => 'json' } do
-    resources :posts do
-      post "like", on: :member
-      post "dislike", on: :member
-    end
     resources :images
+    resources :posts
     resources :comments
     resources :messages
     patch :friends, on: :member

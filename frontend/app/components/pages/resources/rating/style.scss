@@ -1,0 +1,35 @@
+div.rating {
+  min-width: 60px;
+  height: 20px;
+  float: right;
+  margin-top: -5px;
+
+  span.like {
+    background: url('plus.png') no-repeat;
+    background-position: left;
+    background-size: 10px;
+    width: 50px;
+    padding-left: 12px;
+    padding-right: 5px;
+    color: green;
+    font-size: 15px;
+    border-radius: 7px;
+    background-color: rgba(51, 255, 0, 0.68);
+    cursor: pointer;
+  }
+
+  span.dislike {
+    background: url('minus.png') no-repeat;
+    background-position: left;
+    background-size: 10px;
+    width: 50px;
+    padding-left: 12px;
+    padding-right: 5px;
+    color: red;
+    font-size: 15px;
+    border-radius: 7px;
+    background-color: rgba(221, 0, 0, 0.28);
+    cursor: pointer;
+    margin-left: 2px;
+  }
+}
