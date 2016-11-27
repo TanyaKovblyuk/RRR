@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 require("./style.scss")
 
 export default class Dropdown extends React.Component {
@@ -16,6 +17,7 @@ export default class Dropdown extends React.Component {
       url: "/be/logout"
     });
     this.props.setCurrentUser({id: '0'})
+    localStorage.clear()
   }
 
   render() {
@@ -27,12 +29,12 @@ export default class Dropdown extends React.Component {
         </p>
         <div className="dropdown-up" style={{display: (this.state.disabled? "block" : "none")}}></div>
         <ul className="dropdown-menu" style={{display: (this.state.disabled? "block" : "none")}}>
-          <a>
+          <Link to="/edit">
             <li>Edit profile</li>
-          </a>
-          <a onClick={this.logOutClick}>
+          </Link>
+          <Link to="/" onClick={this.logOutClick}>
             <li>Log out</li>
-          </a>
+          </Link>
         </ul>
       </li>
     );

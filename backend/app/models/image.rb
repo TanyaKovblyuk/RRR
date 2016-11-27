@@ -3,7 +3,7 @@ class Image < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :ratings, dependent: :destroy
 
-  mount_uploader :image, ImageUploader
+  mount_base64_uploader :image, ImageUploader
 
   validates :image, presence: true
   validates :user_id, presence: true

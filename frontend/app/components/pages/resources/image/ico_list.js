@@ -9,12 +9,12 @@ export default class AvatarIco extends React.Component {
 
   render() {
     return (
-      <a onClick={this.navVisit}>
+      <Link to={"/user/"+this.props.user.surname} onClick={this.navVisit}>
         <figure className="pfofile-friend">
           <p><img src={this.props.img} /></p>
           <figcaption>{this.props.user.name}</figcaption>
         </figure>
-      </a>
+      </Link>
     );
   }
 };

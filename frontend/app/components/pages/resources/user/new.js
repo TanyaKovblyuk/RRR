@@ -1,7 +1,13 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+//------------------------------------------------------------------------------
+import * as profileActions from '../../../../actions/ProfileActions';
+import * as userActions from '../../../../actions/UserActions';
+//------------------------------------------------------------------------------
 import './new.scss'
 
-export default class NewUser extends React.Component {
+class NewUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {name: '',
@@ -22,6 +28,8 @@ export default class NewUser extends React.Component {
   }
   handleSend = (event) => {
     event.preventDefault();
+    const { setProfile } = this.props.profileActions
+    const { setCurrentUser } = this.props.userActions
     axios.post('/be/users',
             {'name': this.state.name,
              'surname': this.state.surname,
@@ -33,6 +41,8 @@ export default class NewUser extends React.Component {
       console.log(response);
       response.data.status==false? this.setState({ errors: response.data.errors }) : "";
       this.setState({ status: response.data.status })
+      setProfile(response.data.profile)
+      setCurrentUser(response.data.current_user)
     })
   }
 
@@ -93,3 +103,18 @@ var ErrorMsg = React.createClass({
     );
   },
 });
+
+function mapStateToProps (state) {
+  return {
+    id: state.current_user.id
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(userActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser)

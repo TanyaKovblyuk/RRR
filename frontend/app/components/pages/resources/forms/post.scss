@@ -24,8 +24,21 @@ div.NewPost {
       padding-bottom: 10px;
     }
 
+    .image-preview {
+      width: 470px;
+      clear: both;
+    }
+
     #post_image {
       margin-left: 10px;
+    }
+
+    input.inputFile {
+      width: 480px;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      background-color: rgba(54, 101, 30, 0);
+      border: 2px groove rgba(76, 175, 80, 0.72);
     }
 
     button {

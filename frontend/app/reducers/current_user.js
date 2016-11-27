@@ -1,7 +1,7 @@
 const initialState = {
-  id: '2',
-  name: 'Dev',
-  surname: 'Error'
+  id: '0',
+  name: '',
+  surname: ''
 }
 
 export default function current_user(state = initialState, action) {

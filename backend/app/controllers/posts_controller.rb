@@ -1,5 +1,5 @@
 require 'uri'
-
+require "base64"
 class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
@@ -11,6 +11,9 @@ class PostsController < ApplicationController
   def create
     user = User.find_by(id: params[:user_id])
     user.posts.create(post_params)
+    image=Image.new(post_id: Post.last.id, user_id: current_user.id)
+    image.image=(params[:image]) unless params[:image].nil?
+    image.save
     posts user
   end
 

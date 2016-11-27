@@ -10,7 +10,9 @@ class SessionsController < ApplicationController
       log_in user
       params[:remember_me] == '1' ? remember(user) : forget(user)
       respond_to do |format|
-        format.json do render :json => {:status => true, :user => user} end
+        format.json do render :json => {:status => true,
+                                        :current_user => {name: user.name, surname: user.surname, id: user.id},
+                                        :profile => (data user)} end
       end
     else
       respond_to do |format|

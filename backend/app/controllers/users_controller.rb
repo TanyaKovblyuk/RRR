@@ -1,9 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
-  def new
-  end
-
   def create
     @user = User.new(user_params)
 
@@ -11,7 +8,9 @@ class UsersController < ApplicationController
       log_in @user
       UserMailer.account_activation(@user).deliver_now
       respond_to do |format|
-        format.json do render :json => {status: true, user: @user} end
+        format.json do render :json => {status: true,
+                                        current_user: {name: @user.name, surname: @user.surname, id: @user.id},
+                                        profile: (data @user)} end
       end
     else
       respond_to do |format|
@@ -31,8 +30,8 @@ class UsersController < ApplicationController
     item = Comment.find_by(id: params[:comment_id]) unless params[:comment_id].nil?
     begin
       item.ratings.create(:user_id => item.user_id,
-                       :estimator_id => current_user.id,
-                       (params[:like]? :like : :dislike) => 1)
+                          :estimator_id => current_user.id,
+                          (params[:like]? :like : :dislike) => 1)
     rescue => error
       puts "Error: duplicate key"
     end
@@ -50,7 +49,9 @@ class UsersController < ApplicationController
       @user.update_attribute(:surname, params[:surname])
     end
     respond_to do |format|
-      format.json do render :json => {status: true, data: data(current_user)} end
+      format.json do render :json => {name: current_user.name,
+                                      surname: current_user.surname,
+                                      id: current_user.id} end
     end
   end
 
@@ -60,7 +61,9 @@ class UsersController < ApplicationController
     @user.update_attributes(:password => params[:password],
                             :password_confirmation => params[:password_confirmation])
     respond_to do |format|
-      format.json do render :json => {status: true, data: data(current_user)} end
+      format.json do render :json => {name: current_user.name,
+                                      surname: current_user.surname,
+                                      id: current_user.id} end
     end
   end
 

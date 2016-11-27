@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import './min_avatar.scss'
 
 export default class MinAvatar extends React.Component {
@@ -9,11 +10,11 @@ export default class MinAvatar extends React.Component {
 
   render() {
     return (
-      <a onClick={this.navVisit}>
+      <Link to={"/user/"+this.props.user.surname} onClick={this.navVisit}>
         <figure className="pfofile-friend">
           <p><img src={this.props.img} /></p>
         </figure>
-      </a>
+      </Link>
     );
   }
 };

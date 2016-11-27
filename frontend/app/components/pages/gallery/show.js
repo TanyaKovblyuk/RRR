@@ -1,9 +1,11 @@
 import React, { PropTypes } from 'react';
-import './style.scss'
+import { connect } from 'react-redux';
 
 import Img from '../resources/image/img';
 
-export default class Gallery extends React.Component{
+import './style.scss';
+
+class Gallery extends React.Component{
   render() {
     return (
       <div className="show-all-images">
@@ -18,3 +20,11 @@ export default class Gallery extends React.Component{
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    images: state.images.images
+  }
+}
+
+export default connect(mapStateToProps)(Gallery)

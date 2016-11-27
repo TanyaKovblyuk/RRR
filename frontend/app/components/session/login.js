@@ -1,7 +1,14 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
+//------------------------------------------------------------------------------
+import * as profileActions from '../../actions/ProfileActions';
+import * as userActions from '../../actions/UserActions';
+//------------------------------------------------------------------------------
 import './style.scss'
 
-export default class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {email: '',
@@ -21,14 +28,22 @@ export default class Login extends React.Component {
   }
   handleLogin = (event) => {
     event.preventDefault();
+    const { setCurrentUser } = this.props.userActions
+    const { setProfile } = this.props.profileActions
     axios.post('/be/login', {
       email: this.state.email,
       password: this.state.password,
       remember_me: (this.state.checked? '1' : '0')
     })
     .then((response) => {
-      if (response.data.status==true) {this.props.setCurrentUser(response.data.user)}
-      else {this.setState({error: "Invalid email/password"})}
+      if (response.data.status==true) {
+        setCurrentUser(response.data.current_user)
+        setProfile(response.data.profile)
+        browserHistory.push('/profile')
+      }
+      else {
+        this.setState({error: "Invalid email/password"})
+      }
     })
   }
   render() {
@@ -47,3 +62,18 @@ export default class Login extends React.Component {
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    id: state.current_user.id
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(userActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch)
+  }
+}
+//------------------------------------------------------------------------------
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

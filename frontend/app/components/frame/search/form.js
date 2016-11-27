@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Router, Route, browserHistory } from 'react-router';
+//------------------------------------------------------------------------------
 import './style.scss'
 require("url-loader?mimetype=image/png!./search.png");
 
@@ -20,6 +22,7 @@ export default class Search extends React.Component {
     })
     .then((response) => { this.props.setFriends(response.data.friends) })
     this.setState({ str: '' })
+    browserHistory.push('/people')
   }
 
   render() {

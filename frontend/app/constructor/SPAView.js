@@ -1,14 +1,7 @@
 import { render } from "react-dom";
 import React from "react";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-//------------------------------------------------------------------------------
-import * as userActions from '../actions/UserActions';
-import * as imagesActions from '../actions/ImagesActions';
-import * as profileActions from '../actions/ProfileActions';
-import * as newsActions from '../actions/NewsActions';
-import * as friendsActions from '../actions/FriendsActions';
-import * as messagesActions from '../actions/MessagesActions';
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
 //------------------------------------------------------------------------------
 import Login from '../components/session/login';
 import Header from '../components/frame/header';
@@ -27,84 +20,30 @@ import './style.scss'
 //------------------------------------------------------------------------------
 class SPAView extends React.Component{
   render() {
-    const { setId } = this.props.userActions
-    const { setCurrentUser } = this.props.userActions
-    const { setProfile } = this.props.profileActions
-    const { setStatus } = this.props.profileActions
-    const { setPosts } = this.props.profileActions
-    const { setComments } = this.props.profileActions
-    const { setImages } = this.props.imagesActions
-    const { setNews } = this.props.newsActions
-    const { setFriends } = this.props.friendsActions
-    const { setMessages } = this.props.messagesActions
-    var id = this.props.current_user.id
-    var current_user = this.props.current_user
     return (
       <div>
-        < Header id={id}
-                 current_user={current_user}
-                 setCurrentUser={setCurrentUser}
-                 setFriends={setFriends} />
+        < Header />
         <div className="main-content">
-
           <div className="content">
+
             <div className="menu">
-              {id=='0'?  < Login  setCurrentUser={setCurrentUser} /> : < Nav id={id}
-                                                                             setId={setId}
-                                                                             setProfile={setProfile}
-                                                                             setNews={setNews}
-                                                                             setImages={setImages}
-                                                                             setFriends={setFriends}
-                                                                             setMessages={setMessages} />}
+              {this.props.id=='0'?  < Login /> : < Nav />}
             </div>
             <div className="yield_pages">
-              < Profile profile={this.props.profile}
-                        id={id}
-                        setProfile={setProfile}
-                        setPosts={setPosts}
-                        setComments={setComments}
-                        setStatus={setStatus} /><Friends friends={this.props.friends} setProfile={setProfile} />
+              {this.props.children}
             </div>
           </div>
         </div>
-        < Footer id={id} />
+        < Footer />
       </div>
     );
   }
 };
-// < Profile profile={this.props.profile}
-//           id={id}
-//           setProfile={setProfile}
-//           setPosts={setPosts}
-//           setComments={setComments}
-//           setStatus={setStatus} />
-//<Home />
-//<EditUser user={current_user} />
-//<Gallery images={this.props.images} />
-//<News posts={this.props.news} setProfile={setProfile} />
-//<Friends friends={this.props.friends} setProfile={setProfile} />
-//<Messages messages={this.props.messages} setProfile={setProfile} />
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    current_user: state.current_user,
-    images: state.images.images,
-    profile: state.profile,
-    news: state.news.news,
-    friends: state.friends.friends,
-    messages: state.messages.messages,
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    userActions: bindActionCreators(userActions, dispatch),
-    imagesActions: bindActionCreators(imagesActions, dispatch),
-    profileActions: bindActionCreators(profileActions, dispatch),
-    newsActions: bindActionCreators(newsActions, dispatch),
-    friendsActions: bindActionCreators(friendsActions, dispatch),
-    messagesActions: bindActionCreators(messagesActions, dispatch)
+    id: state.current_user.id
   }
 }
 //------------------------------------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(SPAView)
+export default connect(mapStateToProps)(SPAView)

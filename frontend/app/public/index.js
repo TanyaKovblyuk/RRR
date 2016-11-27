@@ -2,16 +2,16 @@ import { render } from "react-dom";
 import React from "react";
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import configureStore from '../store/configureStore.js';
+import configureStore from '../store/configureStore';
 
-import SPAView from "../constructor/SPAView.js";
+import Routing from "../constructor/routing";
 
 
 const store = configureStore();
 
 render(
   <Provider store={store}>
-    < SPAView />
+    < Routing />
   </Provider>,
   document.getElementById("container")
 );

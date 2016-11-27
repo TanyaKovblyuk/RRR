@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+//------------------------------------------------------------------------------
+import * as userActions from '../../../../actions/UserActions';
+//------------------------------------------------------------------------------
 import './edit_user.scss'
 
-export default class EditUser extends React.Component {
+class EditUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {name: this.props.user.name,
@@ -15,31 +20,27 @@ export default class EditUser extends React.Component {
     this.setState({ [''+name]: event.target.value });
   }
   handleName = (event) => {
+    const { setCurrentUser } = this.props.userActions
     event.preventDefault();
     axios({
       method: "PATCH",
       url: '/be/users/'+this.props.user.id,
       data: {'name': this.state.name,
-             'surname': this.state.surname},
-      success: (response) => {
-        if (response.status) {this.props.addContactData(response.data);
-                              this.props.addContactPage('profile')}
-      },
-    })
+             'surname': this.state.surname}
+      })
+      .then((response) => { setCurrentUser(response.data) })
   }
   handlePass = (event) => {
+    const { setCurrentUser } = this.props.userActions
     event.preventDefault();
     axios({
       method: "POST",
       url: '/be/edit_pass',
       data: {'old_password': this.state.old_password,
              'password': this.state.password,
-             'password_confirmation': this.state.password_confirmation},
-      success: (response) => {
-        if (response.status) {this.props.addContactData(response.data);
-                              this.props.addContactPage('profile')}
-      },
-    })
+             'password_confirmation': this.state.password_confirmation}
+      })
+      .then((response) => { setCurrentUser(response.data) })
   }
 
   render() {
@@ -76,3 +77,17 @@ export default class EditUser extends React.Component {
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    user: state.current_user
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(userActions, dispatch)
+  }
+}
+//------------------------------------------------------------------------------
+export default connect(mapStateToProps, mapDispatchToProps)(EditUser)

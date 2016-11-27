@@ -1,12 +1,19 @@
 import React, { PropTypes } from 'react';
-import './friend.scss'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from 'react-router';
+//------------------------------------------------------------------------------
+import * as profileActions from '../../../actions/ProfileActions';
+//------------------------------------------------------------------------------
+import './friend.scss';
 
 import AvatarIco from '../resources/image/ico_list';
 
-export default class Friends extends React.Component{
+class Friends extends React.Component{
   navVisit = (id, event) => {
+    const { setProfile } = this.props.profileActions
     axios.get('/be/users/'+id)
-    .then((response) => { this.props.setProfile(response.data.data) })
+    .then((response) => { setProfile(response.data.data) })
   }
 
   render() {
@@ -18,12 +25,12 @@ export default class Friends extends React.Component{
           {this.props.friends.map(function(friend, index){
             return (
               <div className="one-friend" key={index}>
-                  <a onClick={this.navVisit.bind(this, friend.user.id)}>
+                  <Link to={"/user/"+friend.user.surname} onClick={this.navVisit.bind(this, friend.user.id)}>
                     <figure key={(new Date()).getTime()}>
                       <img src={friend.avatar} />
                     <figcaption>{friend.user.name}</figcaption>
                   </figure>
-                </a>
+                </Link>
               </div>
             )}, this)}
         </div>
@@ -32,3 +39,17 @@ export default class Friends extends React.Component{
     );
   }
 };
+
+function mapStateToProps (state) {
+  return {
+    friends: state.friends.friends
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    profileActions: bindActionCreators(profileActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Friends)
