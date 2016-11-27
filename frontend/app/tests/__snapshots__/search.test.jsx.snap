@@ -1,0 +1,20 @@
+exports[`test renders correctly Search 1`] = `
+<form
+  className="search-form"
+  data-remote="true"
+  onSubmit={[Function]}>
+  <input
+    autoFocus="autofocus"
+    className="form-control"
+    onChange={[Function]}
+    placeholder="Search"
+    type="text" />
+  <br />
+  <button
+    hidden="true"
+    name="button"
+    type="submit">
+    Search!
+  </button>
+</form>
+`;

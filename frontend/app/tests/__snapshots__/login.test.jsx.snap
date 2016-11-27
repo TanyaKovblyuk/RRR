@@ -1,0 +1,36 @@
+exports[`test renders correctly Login 1`] = `
+<form
+  className="login-form">
+  <input
+    autoFocus="autofocus"
+    onChange={[Function]}
+    placeholder="Email"
+    type="text" />
+  <br />
+  <input
+    onChange={[Function]}
+    placeholder="Password"
+    type="password" />
+  <br />
+  <input
+    className="session_remember_me"
+    onClick={[Function]}
+    type="checkbox"
+    value="1" />
+  <label
+    className="remember-label"
+    onClick={[Function]}>
+    Remember me
+  </label>
+  <br />
+  <p
+    className="error">
+    
+  </p>
+  <button
+    name="button"
+    onClick={[Function]}>
+    Log in
+  </button>
+</form>
+`;

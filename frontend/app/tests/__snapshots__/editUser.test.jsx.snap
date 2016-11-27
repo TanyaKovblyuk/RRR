@@ -1,0 +1,60 @@
+exports[`test renders correctly EditUser 1`] = `
+<div
+  className="EditUser">
+  <div
+    className="nav-name-content">
+    <h1>
+      Chang your name
+    </h1>
+    <form
+      data-remote="true">
+      <input
+        defaultValue="Some"
+        id="user_name"
+        onChange={[Function]}
+        type="text" />
+      <br />
+      <input
+        defaultValue="Thing"
+        onChange={[Function]}
+        type="text" />
+      <br />
+      <button
+        name="button"
+        onClick={[Function]}>
+        Send
+      </button>
+    </form>
+  </div>
+  <div
+    className="nav-pass-content">
+    <h1>
+      Chang your password
+    </h1>
+    <form
+      data-remote="true">
+      <input
+        onChange={[Function]}
+        placeholder="Your password"
+        type="password" />
+      <br />
+      <br />
+      <input
+        onChange={[Function]}
+        placeholder="New password"
+        type="password" />
+      <br />
+      <input
+        onChange={[Function]}
+        placeholder="Confirm new password"
+        type="password" />
+      <br />
+      <button
+        name="button"
+        onClick={[Function]}>
+        Send
+      </button>
+    </form>
+  </div>
+</div>
+`;

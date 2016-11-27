@@ -43,6 +43,7 @@ class NewUser extends React.Component {
       this.setState({ status: response.data.status })
       setProfile(response.data.profile)
       setCurrentUser(response.data.current_user)
+      browserHistory.push('/profile')
     })
   }
 

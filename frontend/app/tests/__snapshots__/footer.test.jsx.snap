@@ -1,0 +1,25 @@
+exports[`test renders correctly Footer 1`] = `
+<div
+  className="footer">
+  <a
+    data-remote="true"
+    id="logo-footer"
+    onClick={[Function]}
+    style={Object {}}>
+    Ant-eater
+  </a>
+</div>
+`;
+
+exports[`test renders correctly footers logo 1`] = `
+<div
+  className="footer">
+  <a
+    data-remote="true"
+    id="logo-footer"
+    onClick={[Function]}
+    style={Object {}}>
+    Ant-eater
+  </a>
+</div>
+`;
