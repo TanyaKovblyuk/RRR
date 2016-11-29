@@ -22,9 +22,12 @@ import Messages from '../components/pages/messages/index';
 //------------------------------------------------------------------------------
 import SPAView from './SPAView';
 
+var contact;
+
 class Routing extends React.Component{
   componentWillMount() {
     getNewState (this)
+    contact=this
   }
 
   render() {
@@ -96,6 +99,29 @@ function getNewState (e) {
       browserHistory.replace('/ant-eater')
     }
   })
+}
+//------------------------------------------------------------------------------
+window.onscroll = function(state) {
+  if (document.getElementsByClassName("bottom-news").length!=0) {
+    var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
+    var viewHeight = window.innerHeight;
+    if (viewHeight==bottom+53) {
+      const { setNews } = contact.props.newsActions
+      axios.post('/be/set', {num: document.getElementsByClassName("news").length,
+                             news: true})
+      .then((response) => { setNews(response.data.posts) })
+    }
+  }
+  if (document.getElementsByClassName("bottom").length!=0) {
+    var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
+    var viewHeight = window.innerHeight;
+    if (viewHeight==bottom+53) {
+      const { setPosts } = contact.props.profileActions
+      axios.post('/be/set', {num: document.getElementsByClassName("post").length,
+                             user_id: contact.props.id})
+      .then((response) => { setPosts(response.data.posts) })
+    }
+  }
 }
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {

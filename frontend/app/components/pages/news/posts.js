@@ -9,12 +9,7 @@ import './style.scss'
 
 import MinAvatar from '../resources/image/min_avatar';
 
-var contact;
-
 class News extends React.Component{
-  componentWillMount() {
-    contact=this;
-  }
   render() {
     const { setProfile } = this.props.profileActions
     return (
@@ -36,29 +31,6 @@ class News extends React.Component{
     );
   }
 };
-//------------------------------------------------------------------------------
-window.onscroll = function(state) {
-  if (document.getElementsByClassName("bottom-news").length!=0) {
-    var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
-    var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
-      const { setNews } = contact.props.newsActions
-      axios.post('/be/set', {num: document.getElementsByClassName("news").length,
-                             news: true})
-      .then((response) => { setNews(response.data.posts) })
-    }
-  }
-  if (document.getElementsByClassName("bottom").length!=0) {
-    var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
-    var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
-      const { setPosts } = contactProfile.props.profileActions
-      axios.post('/be/set', {num: document.getElementsByClassName("post").length,
-                             user_id: contactProfile.props.id})
-      .then((response) => { setPosts(response.data.posts) })
-    }
-  }
-}
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
