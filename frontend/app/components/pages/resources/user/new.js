@@ -39,12 +39,16 @@ class NewUser extends React.Component {
              'password': this.state.password,
              'password_confirmation': this.state.password_confirmation,})
     .then((response) => {
-      console.log(response);
-      response.data.status==false? this.setState({ errors: response.data.errors }) : "";
-      this.setState({ status: response.data.status })
-      setProfile(response.data.profile)
-      setCurrentUser(response.data.current_user)
-      browserHistory.push('/ant-eater/profile')
+      if (response.data.status) {
+        setProfile(response.data.profile);
+        setCurrentUser(response.data.current_user);
+        browserHistory.push('/ant-eater/profile');
+
+      }
+      else {
+        this.setState({ errors: response.data.errors })
+        this.setState({ status: response.data.status })
+      }
     })
   }
 

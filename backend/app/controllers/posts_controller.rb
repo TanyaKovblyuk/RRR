@@ -3,9 +3,15 @@ require "base64"
 class PostsController < ApplicationController
   skip_before_filter :verify_authenticity_token
 
-  def add_next
-    @user = User.find_by(id: params[:user_id])
-    @posts = @user.posts.last(10+params[:post]).reverse
+  def get_next
+    if params[:news]
+      respond_to do |format|
+        format.json do render :json => {status: true, posts: (news params[:num])} end
+      end
+    else
+      user = User.find_by(id: params[:user_id])
+      get_next_posts(user, params[:num])
+    end
   end
 
   def create
@@ -25,7 +31,7 @@ class PostsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json do render :json => {status: true, posts: news} end
+      format.json do render :json => {status: true, posts: (news 0)} end
     end
   end
 

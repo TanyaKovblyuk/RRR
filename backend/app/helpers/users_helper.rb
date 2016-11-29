@@ -14,7 +14,7 @@ module UsersHelper
 
   def data(user)
     comments = response_comment user
-    posts = Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).reverse.map do |post|
+    posts = Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).last(10).reverse.map do |post|
       {post: post,
        rating: (search_rating post),
        img: if !Image.find_by(post_id: post.id).nil?
@@ -35,7 +35,7 @@ module UsersHelper
   end
 
   def posts user
-    posts = user.posts.last(10).reverse.map do |post|
+    posts_array = user.posts.last(10).reverse.map do |post|
       {post: post,
        rating: (search_rating post),
        img: if !Image.find_by(post_id: post.id).nil?
@@ -45,7 +45,22 @@ module UsersHelper
     end
     comments = response_comment user
     respond_to do |format|
-      format.json do render :json => {:status => true, :posts => posts, :comments => comments} end
+      format.json do render :json => {:status => true, :posts => posts_array, :comments => comments} end
+    end
+  end
+
+  def get_next_posts(user, n)
+    posts_array = user.posts.last(10+n).reverse.map do |post|
+      {post: post,
+       rating: (search_rating post),
+       img: if !Image.find_by(post_id: post.id).nil?
+              ('/be'+Image.find_by(post_id: post.id).image.post.url)
+            else ''
+            end }
+    end
+    comments = response_comment user
+    respond_to do |format|
+      format.json do render :json => {:status => true, :posts => posts_array, :comments => comments} end
     end
   end
 
@@ -96,9 +111,9 @@ module UsersHelper
     Comment.where('CAST(post_id AS text) LIKE ?', post.id.to_s)
   end
 
-  def news
+  def news n
     friend_ids = current_user.friends.map {|men| men.id} + current_user.inverse_friends.map {|men| men.id}
-    posts = Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(20)
+    posts = Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n)
     posts = posts.map {|post| {post: post,
                                src: (!Image.find_by(post_id: post.id).nil? ? Image.find_by(post_id: post.id).image.post.url : ''),
                                user_id: User.find_by(id: post.user_id).id,

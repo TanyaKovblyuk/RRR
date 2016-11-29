@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get    'password_reset',      to: 'users#password_reset', :defaults => { :format => 'json' }
   post   'edit_pass',           to: 'users#edit_pass', :defaults => { :format => 'json' }
   post   'search',              to: 'users#search', :defaults => { :format => 'json' }
-  post   'set',                 to: 'posts#add_next', :defaults => { :format => 'json' }
+  post   'set',                 to: 'posts#get_next', :defaults => { :format => 'json' }
   get    'search',              to: 'users#index', :defaults => { :format => 'json' }
   post   'add_friend',          to: 'users#create_friend', :defaults => { :format => 'json' }
   delete 'delete_friend',       to: 'users#destroy_friend', :defaults => { :format => 'json' }

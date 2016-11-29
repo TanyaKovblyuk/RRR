@@ -104,7 +104,7 @@ class Profile extends React.Component{
     );
   }
 };
-
+//------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
     id: state.current_user.id,
