@@ -20,7 +20,7 @@ export default class Comment extends React.Component {
         < MinAvatar img={this.props.img}
                     user={this.props.author}
                     setProfile={this.props.setProfile} />
-        <a href={"/users/"+this.props.author.id}
+        <a href={"/ant-eater/users/"+this.props.author.id}
            className="author"
            data-remote="true">
            {this.props.author.name+' '+this.props.author.surname}

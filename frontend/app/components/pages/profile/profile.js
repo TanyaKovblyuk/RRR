@@ -52,7 +52,10 @@ class Profile extends React.Component{
                        show={this.state.show}
                        ContactGetShow={this.addContactGetShow} />
           <div className="friends">
-            <p className="friends-h1">Friends<Link to="/friends">Show all</Link></p>
+            <p className="friends-h1">
+              Friends
+              <Link to={"/ant-eater/users/"+profile.user.id+"/friends"}>Show all</Link>
+            </p>
             {(profile.friends==undefined? [] : profile.friends).map(function(friend, index) {
               return (
                 < AvatarIco user={friend.user}

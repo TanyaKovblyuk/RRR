@@ -5,6 +5,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      Image.create(user_id: @user.id,
+                   avatar: true,
+                   image: File.open("#{Rails.root}/public/images/fallback/avatar.png"))
       log_in @user
       UserMailer.account_activation(@user).deliver_now
       respond_to do |format|
@@ -22,6 +25,20 @@ class UsersController < ApplicationController
   def show
     respond_to do |format|
       format.json do render :json => {status: true, data: data(User.find_by(id: params[:id]))} end
+    end
+  end
+
+  def start
+    respond_to do |format|
+      if logged?
+        format.json do render :json => {status: true,
+                                        current_user: {name: current_user.name,
+                                                       surname: current_user.surname,
+                                                       id: current_user.id},
+                                        profile: (data current_user)} end
+      else
+        format.json do render :json => {status: false} end
+      end
     end
   end
 
@@ -67,6 +84,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    respond_to do |format|
+      format.json do render :json => {current_user: {name: current_user.name,
+                                                     surname: current_user.surname,
+                                                     id: current_user.id}} end
+    end
+  end
+
   def account_activation
   end
 
@@ -80,7 +105,7 @@ class UsersController < ApplicationController
       search<<user if (line.include?user.name)||
                       (line.include?user.surname)||
                       (user.name.include?line)||
-                      (user.name.include?line)
+                      (user.surname.include?line)
     end
     friends = search.map {|friend| {user: {id: friend.id, name: friend.name+' '+friend.surname},
                                     avatar: (get_avatar friend)}}

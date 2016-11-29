@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 //------------------------------------------------------------------------------
 import * as profileActions from '../../../../actions/ProfileActions';
 import * as userActions from '../../../../actions/UserActions';
@@ -43,7 +44,7 @@ class NewUser extends React.Component {
       this.setState({ status: response.data.status })
       setProfile(response.data.profile)
       setCurrentUser(response.data.current_user)
-      browserHistory.push('/profile')
+      browserHistory.push('/ant-eater/profile')
     })
   }
 

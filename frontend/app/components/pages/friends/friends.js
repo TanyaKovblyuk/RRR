@@ -25,7 +25,7 @@ class Friends extends React.Component{
           {this.props.friends.map(function(friend, index){
             return (
               <div className="one-friend" key={index}>
-                  <Link to={"/user/"+friend.user.surname} onClick={this.navVisit.bind(this, friend.user.id)}>
+                  <Link to={"/ant-eater/users/"+friend.user.id} onClick={this.navVisit.bind(this, friend.user.id)}>
                     <figure key={(new Date()).getTime()}>
                       <img src={friend.avatar} />
                     <figcaption>{friend.user.name}</figcaption>

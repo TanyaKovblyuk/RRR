@@ -39,7 +39,7 @@ class Login extends React.Component {
       if (response.data.status==true) {
         setCurrentUser(response.data.current_user)
         setProfile(response.data.profile)
-        browserHistory.push('/profile')
+        browserHistory.push('/ant-eater/profile')
       }
       else {
         this.setState({error: "Invalid email/password"})

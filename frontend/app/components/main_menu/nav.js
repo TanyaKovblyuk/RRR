@@ -44,32 +44,38 @@ class Nav extends React.Component {
     return (
       <div className="main-menu">
         <ul>
-          <Link to="/profile" onClick={this.linkEnter.bind(this, "/users/"+this.props.id, 'profile')}>
+          <Link to="/ant-eater/profile"
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id, 'profile')}>
             <li >
               Profile
             </li>
           </Link>
-          <Link to="/messages" onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/messages", 'messages')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/messages"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/messages", 'messages')}>
             <li >
                 Messages
             </li>
           </Link>
-          <Link to="/news" onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/posts", 'news')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/posts"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/posts", 'news')}>
             <li >
                 News
             </li>
           </Link>
-          <Link to="/friends" onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/friends", 'friends')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/friends"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/friends", 'friends')}>
             <li >
                 Friends
             </li>
           </Link>
-          <Link to="/friendship" onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/propose", 'friendship')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/propose"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/propose", 'friendship')}>
             <li >
                 Offer friendship
             </li>
           </Link>
-          <Link to="/gallery" onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/images", 'gallery')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/images"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/images", 'gallery')}>
             <li >
                 Gallery
             </li>

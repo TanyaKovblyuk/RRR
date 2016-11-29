@@ -10,7 +10,7 @@ class Footer extends React.Component {
   render() {
     return (
       <div className="footer">
-        <Link to={this.props.id=='0' ? "/" : "/profile" }
+        <Link to={this.props.id=='0' ? "/ant-eater" : "/ant-eater/profile" }
            data-remote="true" id="logo-footer">
            Ant-eater
         </Link>

@@ -19,7 +19,7 @@ class Header extends React.Component {
     var id = this.props.id
     return (
       <div className="header">
-        <Link to={this.props.id=='0' ? "/" : "/profile" }
+        <Link to={this.props.id=='0' ? "/ant-eater" : "/ant-eater/profile" }
            data-remote="true" id="logo">
            Ant-eater
         </Link>

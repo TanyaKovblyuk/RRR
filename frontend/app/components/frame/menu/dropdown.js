@@ -29,10 +29,10 @@ export default class Dropdown extends React.Component {
         </p>
         <div className="dropdown-up" style={{display: (this.state.disabled? "block" : "none")}}></div>
         <ul className="dropdown-menu" style={{display: (this.state.disabled? "block" : "none")}}>
-          <Link to="/edit">
+          <Link to={"/ant-eater/users/"+this.props.id+"/edit"}>
             <li>Edit profile</li>
           </Link>
-          <Link to="/" onClick={this.logOutClick}>
+          <Link to="/ant-eater" onClick={this.logOutClick}>
             <li>Log out</li>
           </Link>
         </ul>

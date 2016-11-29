@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post   'add_friend',          to: 'users#create_friend', :defaults => { :format => 'json' }
   delete 'delete_friend',       to: 'users#destroy_friend', :defaults => { :format => 'json' }
   get    '/login',              to: 'sessions#new', :defaults => { :format => 'json' }
+  get    '/start',              to: 'users#start', :defaults => { :format => 'json' }
   post   '/login',              to: 'sessions#create', :defaults => { :format => 'json' }
   delete '/logout',             to: 'sessions#destroy', :defaults => { :format => 'json' }
   post   '/rating',             to: 'users#rating', :defaults => { :format => 'json' }

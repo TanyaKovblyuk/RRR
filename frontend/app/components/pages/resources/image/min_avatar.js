@@ -10,7 +10,7 @@ export default class MinAvatar extends React.Component {
 
   render() {
     return (
-      <Link to={"/user/"+this.props.user.surname} onClick={this.navVisit}>
+      <Link to={"/ant-eater/users/"+this.props.user.id} onClick={this.navVisit}>
         <figure className="pfofile-friend">
           <p><img src={this.props.img} /></p>
         </figure>

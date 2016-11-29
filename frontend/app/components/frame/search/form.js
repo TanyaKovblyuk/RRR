@@ -22,13 +22,19 @@ export default class Search extends React.Component {
     })
     .then((response) => { this.props.setFriends(response.data.friends) })
     this.setState({ str: '' })
-    browserHistory.push('/people')
+    browserHistory.push('/ant-eater/people')
   }
 
   render() {
     return (
       <form className="search-form" data-remote="true" onSubmit={this.handleSubmit}>
-        <input placeholder="Search" autoFocus="autofocus" type="text" className="form-control" onChange={this.searhChange}/><br/>
+        <input placeholder="Search"
+               autoFocus="autofocus"
+               value={this.state.str}
+               type="text"
+               className="form-control"
+               onChange={this.searhChange}/>
+        <br/>
 
         <button name="button" type="submit" hidden="true">Search!</button>
       </form>
