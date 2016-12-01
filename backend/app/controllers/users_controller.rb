@@ -34,8 +34,7 @@ class UsersController < ApplicationController
         format.json do render :json => {status: true,
                                         current_user: {name: current_user.name,
                                                        surname: current_user.surname,
-                                                       id: current_user.id},
-                                        profile: (data current_user)} end
+                                                       id: current_user.id}} end
       else
         format.json do render :json => {status: false} end
       end

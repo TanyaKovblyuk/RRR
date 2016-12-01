@@ -1,4 +1,5 @@
 export function setProfile(profile) {
+  localStorage.setItem('profile', JSON.stringify(profile))
   return {
     type: 'SET_PROFILE',
     payload: profile

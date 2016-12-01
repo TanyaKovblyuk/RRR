@@ -6,6 +6,7 @@ export function setId(id) {
 }
 
 export function setCurrentUser(user) {
+  localStorage.setItem('current_user', JSON.stringify(user))
   return {
     type: 'SET_CURRENT_USER',
     payload: user

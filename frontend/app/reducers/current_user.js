@@ -4,8 +4,7 @@ const initialState = {
   surname: ''
 }
 
-export default function current_user(state = initialState, action) {
-
+export default function current_user(state = (loadState()? loadState() : initialState), action) {
   switch (action.type) {
     case 'SET_ID':
       return Object.assign({}, state, { id: action.payload })
@@ -16,5 +15,10 @@ export default function current_user(state = initialState, action) {
     default:
       return state;
   }
+}
 
+
+const loadState = () => {
+  const serializedState = localStorage.getItem('current_user');
+  return JSON.parse(serializedState);
 }

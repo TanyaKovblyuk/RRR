@@ -8,7 +8,7 @@ const initialState = {
   is_friend: false
 }
 
-export default function current_user(state = initialState, action) {
+export default function current_user(state = (loadState()? loadState() : initialState), action) {
 
   switch (action.type) {
     case 'SET_PROFILE':
@@ -27,4 +27,9 @@ export default function current_user(state = initialState, action) {
       return state;
   }
 
+}
+
+const loadState = () => {
+  const serializedState = localStorage.getItem('profile');
+  return JSON.parse(serializedState);
 }
