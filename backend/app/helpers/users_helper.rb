@@ -6,6 +6,12 @@ module UsersHelper
     nil
   end
 
+  def get_all_avatar user
+    all_avatar=[]
+    user.images.order('id DESC').all.each {|img| all_avatar<<('/be'+img.image.avatar.url) if img.avatar}
+    all_avatar
+  end
+
   def search_rating item
     rating = {like: 0, dislike: 0}
     item.ratings.map{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
@@ -24,6 +30,7 @@ module UsersHelper
     end
     {:user => user.slice(:name, :surname, :id),
      :avatar => (get_avatar user),
+     :all_avatar => (get_all_avatar user),
      :posts => posts,
      :comments => comments,
      :is_friend => (current_user.inverse_friends.all.include?(user)),

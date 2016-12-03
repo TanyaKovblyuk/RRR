@@ -15,16 +15,25 @@ import NewPost from '../resources/forms/post';
 import Post from '../resources/post/post';
 import NewComment from '../resources/forms/comment';
 import Comment from '../resources/comment/comment';
+import ChangAvatar from '../resources/user/chang_avatar';
+import ImgView from '../resources/image_view/img';
 
 import './style.scss'
 
 class Profile extends React.Component{
   constructor(props) {
     super(props);
-    this.state = {show: false};
+    this.state = {show: false,
+                  showFullSizeAvatar: false};
   }
   addContactGetShow = (contact) => {
     this.setState({show: contact})
+  }
+  getContactShowFullSizeAvatar = (show) => {
+    this.setState({showFullSizeAvatar: show})
+  }
+  getShowFullSizeAvatar = (e) => {
+    this.setState({showFullSizeAvatar: true})
   }
   navVisit = (event) => {
     const { setFriends } = this.props.friendsActions
@@ -41,7 +50,14 @@ class Profile extends React.Component{
     return (
       <div className="user-show">
         <div className="profile-static">
-          < Avatar src={profile.avatar} />
+          <div onClick={this.getShowFullSizeAvatar}>
+            < Avatar src={profile.avatar} />
+          </div>
+          < ChangAvatar />
+          < ImgView images={profile.all_avatar}
+                    begin={0}
+                    show={this.state.showFullSizeAvatar}
+                    getShow={this.getContactShowFullSizeAvatar} />
           <hr />
           < UserActions id={this.props.id}
                         user_id={profile.user.id}

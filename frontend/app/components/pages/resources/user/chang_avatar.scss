@@ -1,0 +1,29 @@
+div.new-avatar {
+  margin-left: 18px;
+  margin-top: 5px;
+
+  label {
+    display: block;
+    width: 210px;
+    height: 15px;
+    border: 2px groove rgba(103, 174, 208, 0.95);
+    background: -webkit-radial-gradient(230px 40px, circle closest-corner, #c0f1e2 0%,#002261 100%);
+    background: -moz-radial-gradient(230px 40px, circle closest-corner, #c0f1e2 0%,#002261 100%);
+    background: -o-radial-gradient(230px 40px, circle closest-corner, #c0f1e2 0%,#002261 100%);
+    background: -ms-radial-gradient(230px 40px, circle closest-corner, #c0f1e2 0%,#002261 100%);
+    background: radial-gradient(230px 40px, circle closest-corner, #c0f1e2 0%,#002261 100%);
+    color: white;
+    text-align: center;
+    padding: 2px 0 2px 0;
+    font-size: 16px;
+    background-size: 100% 100%;
+    transition: all 2s linear;
+  }
+  label:hover {
+    background-size: 400% 100%;
+  }
+
+  input {
+    display: none;
+  }
+}
