@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import './ico_list.scss'
 
 export default class AvatarIco extends React.Component {

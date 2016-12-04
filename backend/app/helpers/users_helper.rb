@@ -28,7 +28,7 @@ module UsersHelper
             else ''
             end }
     end
-    {:user => user.slice(:name, :surname, :id),
+    {:user => user.slice(:name, :surname, :id, :presence),
      :avatar => (get_avatar user),
      :all_avatar => (get_all_avatar user),
      :posts => posts,

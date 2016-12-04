@@ -5,7 +5,10 @@ export default class UserInfo extends React.Component {
   render() {
     return (
       <div className="UserInfo">
-        <p className="profile-name">{this.props.user.name+' '+this.props.user.surname}</p>
+        <p className="profile-name">
+          {this.props.user.name+' '+this.props.user.surname}
+          <span>{this.props.user.presence}</span>
+        </p>
         <hr />
         <p className="activity">
           Users activity:

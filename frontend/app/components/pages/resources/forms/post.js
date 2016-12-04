@@ -39,6 +39,7 @@ export default class NewPost extends React.Component {
     this.setState({ show: false })
     this.setState({ text: '' })
     this.setState({fileName: ''})
+    this.setState({uri: ''})
   }
 
   render() {
@@ -58,7 +59,7 @@ export default class NewPost extends React.Component {
                       onChange={this.textChange}/><br/>
 
             <input type="file"
-                   name="file" 
+                   name="file"
                    value={this.state.fileName}
                    className="inputFile"
                    onChange={this.selectImage}/>

@@ -1,6 +1,7 @@
 module SessionsHelper
   def log_in user
     session[:user_id] = user.id
+    current_user.update_attribute(:presence, 'online')
   end
 
   def log_out

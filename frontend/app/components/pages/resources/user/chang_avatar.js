@@ -20,6 +20,7 @@ class ChangAvatar extends React.Component{
         const { setProfile } = this.props.profileActions
         var profile=this.props.profile
         profile.avatar=response.data.avatar
+        profile.all_avatar.unshift(response.data.avatar)
         setProfile(profile)
       })
     };

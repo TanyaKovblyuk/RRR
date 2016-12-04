@@ -116,6 +116,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.7)
       ffi (>= 0.5.0)
+    redis (3.3.2)
     spring (2.0.0)
       activesupport (>= 4.2)
     spring-watcher-listen (2.0.1)
@@ -158,6 +159,7 @@ DEPENDENCIES
   pg (~> 0.19.0)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
+  redis (~> 3.3.2)
   spring
   spring-watcher-listen (~> 2.0.0)
   tzinfo-data

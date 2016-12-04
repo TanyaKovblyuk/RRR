@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    puts current_user.inspect
     respond_to do |format|
       format.json do render :json => {status: true, data: data(User.find_by(id: params[:id]))} end
     end
@@ -136,7 +137,7 @@ class UsersController < ApplicationController
     if current_user.friends.all.include?(user)
       FriendRelation.where('CAST(user_id AS text) LIKE ? AND
                             CAST(friend_id AS text) LIKE ?', current_user.id.to_s, user.id.to_s)
-      .all[0].update_attribute(confirmed: true)
+      .all[0].update_attribute(:confirmed, true)
     else
       relation = FriendRelation.create(user_id: params[:id], friend_id: current_user.id)
     end

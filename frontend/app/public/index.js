@@ -6,7 +6,6 @@ import configureStore from '../store/configureStore';
 
 import Routing from "../constructor/routing";
 
-
 const store = configureStore();
 
 render(

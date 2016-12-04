@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
 //------------------------------------------------------------------------------
 import * as profileActions from '../actions/ProfileActions';
 import * as userActions from '../actions/UserActions';

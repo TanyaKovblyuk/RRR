@@ -1,5 +1,13 @@
 .UserInfo {
-  .profile-name { font-size: 20px; }
+  .profile-name {
+    font-size: 20px;
+
+    span {
+      float: right;
+      font-size: 14px;
+      color: grey;
+    }
+  }
 
   .activity {
     font-size: 15px;

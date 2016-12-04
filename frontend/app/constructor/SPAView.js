@@ -1,7 +1,8 @@
 import { render } from "react-dom";
 import React from "react";
 import { connect } from 'react-redux';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router'
+import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
+import Websocket from 'react-websocket';
 //------------------------------------------------------------------------------
 import Login from '../components/session/login';
 import Header from '../components/frame/header';
@@ -35,6 +36,7 @@ class SPAView extends React.Component{
           </div>
         </div>
         < Footer />
+        <Websocket url='ws://localhost:3000/cable' onMessage={function(){}} />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => "/cable"
   root 'users#new'
 
   get    'account_activation',  to: 'users#account_activation', :defaults => { :format => 'json' }
