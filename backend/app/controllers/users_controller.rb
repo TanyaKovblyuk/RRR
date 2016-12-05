@@ -2,41 +2,41 @@ class UsersController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def create
-    @user = User.new(user_params)
+    user = User.new(user_params)
 
-    if @user.save
-      Image.create(user_id: @user.id,
+    if user.save
+      Image.create(user_id: user.id,
                    avatar: true,
                    image: File.open("#{Rails.root}/public/images/fallback/avatar.png"))
-      log_in @user
-      UserMailer.account_activation(@user).deliver_now
+      log_in user
+      UserMailer.account_activation(user).deliver_now
       respond_to do |format|
         format.json do render :json => {status: true,
-                                        current_user: {name: @user.name, surname: @user.surname, id: @user.id},
-                                        profile: (data @user)} end
+                                        current_user: user.slice(:name, :surname, :id),
+                                        profile: data(user)} end
       end
     else
       respond_to do |format|
-        format.json do render :json => {status: false, errors: @user.errors.full_messages} end
+        format.json {render :json => {status: false, errors: user.errors.full_messages}}
       end
     end
   end
 
   def show
     respond_to do |format|
-      format.json do render :json => {status: true, data: data(User.find_by(id: params[:id]))} end
+      format.json {render :json => {status: true, data: data(User.find_by(id: params[:id]))}}
     end
   end
 
   def start
     respond_to do |format|
       if logged?
-        format.json do render :json => {status: true,
-                                        current_user: {name: current_user.name,
-                                                       surname: current_user.surname,
-                                                       id: current_user.id}} end
+        format.json do
+          render :json => {status: true,
+                           current_user: current_user.slice(:name, :surname, :id)}
+        end
       else
-        format.json do render :json => {status: false} end
+        format.json {render :json => {status: false}}
       end
     end
   end
@@ -51,43 +51,33 @@ class UsersController < ApplicationController
     rescue => error
       puts "Error: duplicate key"
     end
-    rating = {like: 0, dislike: 0}
-    item.ratings.map{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
     respond_to do |format|
-      format.json do render :json => {status: error.nil?, rating: rating} end
+      format.json {render :json => {status: error.nil?, rating: search_rating(item)}}
     end
   end
 
   def update
-    @user = current_user
     if User.new(validation_hash).valid?
-      @user.update_attribute(:name, params[:name])
-      @user.update_attribute(:surname, params[:surname])
+      current_user.update_attribute(:name, params[:name])
+      current_user.update_attribute(:surname, params[:surname])
     end
     respond_to do |format|
-      format.json do render :json => {name: current_user.name,
-                                      surname: current_user.surname,
-                                      id: current_user.id} end
+      format.json {render :json => current_user.slice(:name, :surname, :id)}
     end
   end
 
   def edit_pass
-    @user = current_user
-    @user.authenticated?(:password, params[:old_password])
-    @user.update_attributes(:password => params[:password],
-                            :password_confirmation => params[:password_confirmation])
+    current_user.authenticated?(:password, params[:old_password])
+    current_user.update_attributes(:password => params[:password],
+                                   :password_confirmation => params[:password_confirmation])
     respond_to do |format|
-      format.json do render :json => {name: current_user.name,
-                                      surname: current_user.surname,
-                                      id: current_user.id} end
+      format.json {render :json => current_user.slice(:name, :surname, :id)}
     end
   end
 
   def edit
     respond_to do |format|
-      format.json do render :json => {current_user: {name: current_user.name,
-                                                     surname: current_user.surname,
-                                                     id: current_user.id}} end
+      format.json {render :json => {current_user: current_user.slice(:name, :surname, :id)}}
     end
   end
 
@@ -106,28 +96,28 @@ class UsersController < ApplicationController
                       (user.name.include?line)||
                       (user.surname.include?line)
     end
-    friends = search.map {|friend| {user: {id: friend.id, name: friend.name+' '+friend.surname},
-                                    avatar: (get_avatar friend)}}
+    friends = search.map {|friend| {user: friend.slice(:name, :surname, :id),
+                                    avatar: get_avatar(friend)}}
     respond_to do |format|
-      format.json do render :json => {status: true, friends: friends} end
+      format.json {render :json => {status: true, friends: friends}}
     end
   end
 
   def friends
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = (confirmed_friends user).map {|friend| {user: friend.slice(:name, :surname, :id),
-                                                      avatar: (get_avatar friend)}}
+    friends = confirmed_friends(user).map {|friend| {user: friend.slice(:name, :surname, :id),
+                                                      avatar: get_avatar(friend)}}
     respond_to do |format|
-      format.json do render :json => {status: true, friends: friends} end
+      format.json {render :json => {status: true, friends: friends}}
     end
   end
 
   def propose
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = (likely_friends user).map {|friend| {user: friend.slice(:name, :surname, :id),
-                                                   avatar: (get_avatar friend)}}
+    friends = likely_friends(user).map {|friend| {user: friend.slice(:name, :surname, :id),
+                                                  avatar: get_avatar(friend)}}
     respond_to do |format|
-      format.json do render :json => {status: true, friends: friends} end
+      format.json {render :json => {status: true, friends: friends}}
     end
   end
 
@@ -141,7 +131,7 @@ class UsersController < ApplicationController
       relation = FriendRelation.create(user_id: params[:id], friend_id: current_user.id)
     end
     respond_to do |format|
-      format.json do render :json => {is_friend: true} end
+      format.json {render :json => {is_friend: true}}
     end
   end
 
@@ -157,7 +147,7 @@ class UsersController < ApplicationController
       relation.each{|record| record.delete}
     end
     respond_to do |format|
-      format.json do render :json => {is_friend: false} end
+      format.json {render :json => {is_friend: false}}
     end
   end
 

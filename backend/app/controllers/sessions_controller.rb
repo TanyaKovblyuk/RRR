@@ -1,8 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :verify_authenticity_token
-
-  def new
-  end
+  skip_before_action :verify_authenticity_token
 
   def create
     user = User.find_by(email: params[:email])
@@ -11,12 +8,12 @@ class SessionsController < ApplicationController
       params[:remember_me] == '1' ? remember(user) : forget(user)
       respond_to do |format|
         format.json do render :json => {:status => true,
-                                        :current_user => {name: user.name, surname: user.surname, id: user.id},
+                                        :current_user => user.slice(:name, :surname, :id),
                                         :profile => (data user)} end
       end
     else
       respond_to do |format|
-        format.json do render :json => {:status => false} end
+        format.json {render :json => {:status => false}}
       end
     end
   end

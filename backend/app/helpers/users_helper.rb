@@ -14,82 +14,77 @@ module UsersHelper
 
   def search_rating item
     rating = {like: 0, dislike: 0}
-    item.ratings.map{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
+    item.ratings.each{|record| record.like==1? rating[:like]+=1 : rating[:dislike]+=1}
     rating
   end
 
-  def data(user)
-    comments = response_comment user
-    posts = Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).last(10).reverse.map do |post|
-      {post: post,
-       rating: (search_rating post),
-       img: if !Image.find_by(post_id: post.id).nil?
-              ('/be'+Image.find_by(post_id: post.id).image.post.url)
-            else ''
-            end }
-    end
+  def data user
     {:user => user.slice(:name, :surname, :id, :presence),
-     :avatar => (get_avatar user),
-     :all_avatar => (get_all_avatar user),
-     :posts => posts,
-     :comments => comments,
-     :is_friend => (current_user.inverse_friends.all.include?(user)),
-     :friends => (get_nine_friends user),
+     :avatar => get_avatar(user),
+     :all_avatar => get_all_avatar(user),
+     :posts => response_posts(user),
+     :comments => response_comment(user),
+     :is_friend => is_friend?(user),
+     :friends => get_nine_friends(user),
      :statistics => {:posts => user.posts.count,
                      :images => user.images.count,
                      :comments => user.comments.count,
                      :friends => user.all_friends.count}}
   end
 
-  def posts user
-    posts_array = user.posts.last(10).reverse.map do |post|
-      {post: post,
-       rating: (search_rating post),
-       img: if !Image.find_by(post_id: post.id).nil?
-              ('/be'+Image.find_by(post_id: post.id).image.post.url)
-            else ''
-            end }
-    end
-    comments = response_comment user
+  def post_images post
+    images = (Image.where('CAST(post_id AS text) LIKE ?', post.id.to_s)
+              .map{|image| ('/be'+image.image.post.url)})
+    images.count==0? [] : images
+  end
+
+  def refresh_posts user
     respond_to do |format|
-      format.json do render :json => {:status => true, :posts => posts_array, :comments => comments} end
+      format.json do
+        render :json => {:status => true,
+                         :posts => response_posts(user),
+                         :comments => response_comment(user)}
+      end
     end
   end
 
   def get_next_posts(user, n)
-    posts_array = user.posts.last(10+n).reverse.map do |post|
-      {post: post,
-       rating: (search_rating post),
-       img: if !Image.find_by(post_id: post.id).nil?
-              ('/be'+Image.find_by(post_id: post.id).image.post.url)
-            else ''
-            end }
-    end
-    comments = response_comment user
     respond_to do |format|
-      format.json do render :json => {:status => true, :posts => posts_array, :comments => comments} end
+      format.json do
+        render :json => {:status => true,
+                         :posts => response_posts(user, n),
+                         :comments => response_comment(user, n)} end
+    end
+  end
+
+  def response_posts(user, n=0)
+    user.posts.last(10+n).reverse.map do |post|
+      {post: post,
+       rating: search_rating(post),
+       img: post_images(post) }
     end
   end
 
   def build_comments comments
     comments.map do |comment|
-      {user: User.find_by(id: comment.user_id).slice(:name, :surname, :id),
+      user = User.find_by(id: comment.user_id)
+      {user: user.slice(:name, :surname, :id),
        comment: comment,
-       rating: (search_rating comment),
-       avatar: (get_avatar User.find_by(id: comment.user_id))}
+       rating: search_rating(comment),
+       avatar: get_avatar(user)}
     end
   end
 
-  def response_comment user
-    Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).last(10).reverse.map do |post|
-      (build_comments post.comments)||[[]]
+  def response_comment(user, n=0)
+    Post.where('CAST(user_id AS text) LIKE ?', user.id.to_s).last(10+n).reverse.map do |post|
+      build_comments(post.comments)||[[]]
     end
   end
 
   def get_nine_friends user
     friends = confirmed_friends user
     (friends.count < 10 ? friends : friends.limit(9)).map do |friend|
-      {avatar: (get_avatar friend),
+      {avatar: get_avatar(friend),
        user: friend.slice(:name, :surname, :id)}
     end
   end
@@ -107,11 +102,11 @@ module UsersHelper
   end
 
   def is_friend? user
-    current_user.all_friends.include?(user)
+    current_user.inverse_friends.all.include?(user)
   end
 
-  def date_format strtime
-    strtime.strftime('%B %d, %H:%M:%S')
+  def date_format time
+    time.strftime('%B %d, %H:%M:%S')
   end
 
   def post_comments post
@@ -120,16 +115,18 @@ module UsersHelper
 
   def news n
     friend_ids = current_user.friends.map {|men| men.id} + current_user.inverse_friends.map {|men| men.id}
-    posts = Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n)
-    posts = posts.map {|post| {post: post,
-                               src: (!Image.find_by(post_id: post.id).nil? ? ('/be/'+Image.find_by(post_id: post.id).image.post.url) : ''),
-                               user_id: User.find_by(id: post.user_id).id,
-                               user_name: User.find_by(id: post.user_id).name+' '+User.find_by(id: post.user_id).surname,
-                               img: (get_avatar User.find_by(id: post.user.id))}}
-    posts
+    Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n)
+    .map do |post|
+      user = User.find_by(id: post.user_id)
+      {post: post,
+       src: post_images(post),
+       user_id: user.id,
+       user_name: user.name+' '+user.surname,
+       img: get_avatar(user)}
+    end
   end
 
   def get_user msg
-    user = User.find_by(id: msg.user_id)
+    User.find_by(id: msg.user_id)
   end
 end
