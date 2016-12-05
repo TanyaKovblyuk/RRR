@@ -30,7 +30,7 @@ class Nav extends React.Component {
           return setImages(response.data.images)
         case 'friends':
           return setFriends(response.data.friends)
-        case 'friendship':
+        case 'followers':
           return setFriends(response.data.friends)
         case 'messages':
           return setMessages(response.data.messages)
@@ -68,10 +68,10 @@ class Nav extends React.Component {
                 Friends
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/propose"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/propose", 'friendship')}>
+          <Link to={"/ant-eater/users/"+this.props.id+"/followers"}
+                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/followers", 'followers')}>
             <li >
-                Offer friendship
+                Followers
             </li>
           </Link>
           <Link to={"/ant-eater/users/"+this.props.id+"/images"}

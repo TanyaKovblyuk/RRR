@@ -34,7 +34,7 @@ class Friends extends React.Component{
               </div>
             )}, this)}
         </div>
-        <hr className="bottom" />
+        <hr className="bottom-border" />
       </div>
     );
   }

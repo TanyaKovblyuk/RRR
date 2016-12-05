@@ -35,9 +35,9 @@ class Profile extends React.Component{
   getShowFullSizeAvatar = (e) => {
     this.setState({showFullSizeAvatar: true})
   }
-  navVisit = (event) => {
+  getFriends = (event) => {
     const { setFriends } = this.props.friendsActions
-    axios.get("/users/"+this.props.profile.user.id+"/friends")
+    axios.get("/be/users/"+this.props.profile.user.id+"/friends")
     .then((response) => { setFriends(response.data.friends) })
   }
 
@@ -70,7 +70,9 @@ class Profile extends React.Component{
           <div className="friends">
             <p className="friends-h1">
               Friends
-              <Link to={"/ant-eater/users/"+profile.user.id+"/friends"}>Show all</Link>
+              <Link to={"/ant-eater/users/"+profile.user.id+"/friends"} onClick={this.getFriends}>
+                Show all
+              </Link>
             </p>
             {(profile.friends==undefined? [] : profile.friends).map(function(friend, index) {
               return (

@@ -41,7 +41,7 @@ class Routing extends React.Component{
           < Route path="/ant-eater/users/:id/messages" component={Messages} />
           < Route path="/ant-eater/users/:id/posts" component={News} />
           < Route path="/ant-eater/users/:id/friends" component={Friends} />
-          < Route path="/ant-eater/users/:id/propose" component={Friends} />
+          < Route path="/ant-eater/users/:id/followers" component={Friends} />
           < Route path="people" component={Friends} />
           < Route path="/ant-eater/users/:id/images" component={Gallery} />
           < Route path="/ant-eater/users/:id/edit" component={EditUser} />
@@ -96,7 +96,7 @@ window.onscroll = function(state) {
 
 function location (link) {
   var res = 'profile';
-  ['posts', 'propose', 'images', 'messages', 'friends', 'edit'].forEach(function(key) {
+  ['posts', 'followers', 'images', 'messages', 'friends', 'edit'].forEach(function(key) {
     if (link.includes(key)) { res = key }
   });
   return res;
@@ -127,7 +127,7 @@ function getNewState (e) {
             return setImages(response.data.images)
           case 'friends':
             return setFriends(response.data.friends)
-          case 'propose':
+          case 'followers':
             return setFriends(response.data.friends)
           case 'messages':
             return setMessages(response.data.messages)

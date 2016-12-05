@@ -112,7 +112,7 @@ class UsersController < ApplicationController
     end
   end
 
-  def propose
+  def followers
     user = User.find_by(id: (params[:id]||current_user.id))
     friends = likely_friends(user).map {|friend| {user: friend.slice(:name, :surname, :id),
                                                   avatar: get_avatar(friend)}}

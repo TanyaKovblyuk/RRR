@@ -4,7 +4,7 @@
   "description": "react-frontend",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --inline --hot",
+    "start": "webpack-dev-server --inline --hot",
     "test": "jest"
   },
   "jest": {

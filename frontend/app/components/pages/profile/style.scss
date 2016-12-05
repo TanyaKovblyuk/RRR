@@ -40,6 +40,17 @@ div.user-show {
           margin-right: 10px;
           font-size: 12px;
           cursor: pointer;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: none;
+            color: blue;
+          }
+
+          &:visited {
+            text-decoration: none;
+            color: blue;
+          }
         }
       }
     }
