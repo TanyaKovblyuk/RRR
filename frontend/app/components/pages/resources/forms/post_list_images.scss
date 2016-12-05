@@ -1,0 +1,88 @@
+div.post-images-list {
+  width: 485px;
+  margin-left: 10px;
+  margin-bottom: 5px;
+
+  .one-image {
+    width: 485px;
+    height: 400px;
+  }
+
+  .first-image, .second-image {
+    width: 240px;
+    height: 300px;
+    margin-right: 1.25px;
+    margin-left: 1.25px;
+    float: left;
+    margin-bottom: 5px;
+  }
+
+  .main-image {
+    width: 320px;
+    height: 303px;
+    margin-right: 5px;
+    float: left;
+  }
+
+  .other-images-two {
+    width: 160px;
+    margin-left: 325px;
+
+    img {
+      width: 160px;
+      height: 150px;
+    }
+  }
+
+  .other-images-three {
+    width: 160px;
+    margin-left: 325px;
+
+    img {
+      width: 160px;
+      height: 99px;
+    }
+  }
+
+  hr {
+    width: 100%;
+    clear: both;
+    display: none;
+  }
+
+  div.delete:hover {
+    background: url('close.png') center center no-repeat;
+    background-size: contain;
+    cursor: pointer;
+
+    img {
+      opacity: 0.6;
+    }
+  }
+
+  div.delete-two:hover {
+    background: url('close.png') center center no-repeat;
+    background-size: contain;
+    float: left;
+    width: 242.5px;
+    height: 300px;
+    cursor: pointer;
+
+    img {
+      opacity: 0.6;
+    }
+  }
+
+  div.delete-main:hover {
+    background: url('close.png') center center no-repeat;
+    background-size: contain;
+    float: left;
+    width: 320px;
+    height: 303px;
+    cursor: pointer;
+
+    img {
+      opacity: 0.6;
+    }
+  }
+}

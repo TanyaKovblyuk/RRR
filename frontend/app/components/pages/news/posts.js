@@ -23,6 +23,7 @@ class News extends React.Component{
                 <p className="name">{post.user_name}</p>
                 <p className="time">{post.post.created_at}</p>
                 <hr />
+                {post.src==''? '' : <img src={post.src} className="with" />}
                 <p className="text">{post.post.text}</p>
               </div>
           )}, this)}

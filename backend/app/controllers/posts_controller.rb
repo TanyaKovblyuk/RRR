@@ -17,9 +17,11 @@ class PostsController < ApplicationController
   def create
     user = User.find_by(id: params[:user_id])
     user.posts.create(post_params)
-    image=Image.new(post_id: Post.last.id, user_id: current_user.id)
-    image.image=(params[:image]) unless params[:image].nil?
-    image.save
+    unless params[:image].length==0
+      params[:image].each do |img|
+        Image.create(post_id: Post.last.id, user_id: current_user.id, image: img)
+      end
+    end
     posts user
   end
 

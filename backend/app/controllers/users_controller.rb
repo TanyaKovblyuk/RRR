@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def create
     @user = User.new(user_params)
@@ -23,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    puts current_user.inspect
     respond_to do |format|
       format.json do render :json => {status: true, data: data(User.find_by(id: params[:id]))} end
     end

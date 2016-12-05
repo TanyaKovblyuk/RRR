@@ -35,11 +35,19 @@ div.NewPost {
     }
 
     input.inputFile {
-      width: 480px;
-      margin-left: 10px;
-      margin-bottom: 5px;
-      background-color: rgba(54, 101, 30, 0);
-      border: 2px groove rgba(76, 175, 80, 0.72);
+      display: none;
+    }
+
+    label {
+      padding: 8px 0px 8px 5px;
+      cursor: pointer;
+      float: right;
+      margin-right: 10px;
+      margin-top: -10px;
+      background: url('upload.png') center center no-repeat;
+      background-size: contain;
+      width: 27px;
+      color: rgba(0, 0, 0, 0);
     }
 
     button {

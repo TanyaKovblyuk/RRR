@@ -1,5 +1,7 @@
 import React, { PropTypes } from 'react';
 
+import PostListImages from './post_list_images';
+
 import './post.scss'
 
 export default class NewPost extends React.Component {
@@ -8,7 +10,7 @@ export default class NewPost extends React.Component {
     this.state = {text: '',
                   show: false,
                   fileName: '',
-                  uri: ''};
+                  uri: []};
   }
 
   textChange = (event) => {
@@ -20,16 +22,30 @@ export default class NewPost extends React.Component {
   selectImage = (e) => {
     this.setState({fileName: e.target.value})
 
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
+    if (this.state.uri.length<4) {
+      var images=this.state.uri;
+      var count=(e.target.files.length>4? 4 : e.target.files.length)
+      for (var i=0;i<count;i++) {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[i]);
 
-    reader.onload = (upload) => {
-      this.setState({ uri: upload.target.result });
-    };
+        reader.onload = (upload) => {
+          images.push(upload.target.result)
+          this.setState({ uri: images });
+        };
+      }
+      this.setState({ uri: images, fileName: '' });
+    }
+  }
+  getNumToDelete = (num) => {
+    var images = this.state.uri
+    images.splice( num, 1 )
+    if (images.length==0) { images=[] }
+    this.setState({uri: images})
   }
   handlePost = (event) => {
     event.preventDefault();
-    this.state.text.length>5?
+    (this.state.text.length>5||this.state.uri.length>0)?
       axios({
         method: "POST",
         url: '/be/users/'+this.props.id+'/posts',
@@ -49,7 +65,7 @@ export default class NewPost extends React.Component {
           <button className="new-post" onClick={this.handleShow}>Write your new post</button>
         </div>
         <div className="post-forms create-post" style={{display: (this.state.show? "block" : "none")}}>
-          <img src={this.state.uri} className="image-preview" />
+          < PostListImages images={this.state.uri} setNumToDelete={this.getNumToDelete}/>
           <form data-remote="true">
             <textarea className="post-create-body"
                       placeholder="Write your new post"
@@ -58,11 +74,14 @@ export default class NewPost extends React.Component {
                       type="text"
                       onChange={this.textChange}/><br/>
 
+            <label htmlFor="upload-images">Add image</label>
             <input type="file"
+                   id="upload-images"
                    name="file"
                    value={this.state.fileName}
                    className="inputFile"
-                   onChange={this.selectImage}/>
+                   onChange={this.selectImage}
+                   multiple />
 
             <button name="button" onClick={this.handlePost}>Send</button>
           </form>

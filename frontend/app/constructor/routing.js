@@ -3,7 +3,7 @@ import React from "react";
 import axios from "axios";
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Router, Route, Link, browserHistory, IndexRoute } from 'react-router';
+import { Router, Route, Link, browserHistory, IndexRoute, Redirect } from 'react-router';
 //------------------------------------------------------------------------------
 import * as profileActions from '../actions/ProfileActions';
 import * as userActions from '../actions/UserActions';
@@ -33,6 +33,7 @@ class Routing extends React.Component{
   render() {
     return (
       < Router history={browserHistory} >
+        < Redirect from="/" to="/ant-eater" />
         < Route path="/ant-eater" component={SPAView} >
           < IndexRoute component={Home} />
           < Route path="profile" component={Profile} />
@@ -49,6 +50,49 @@ class Routing extends React.Component{
     );
   }
 };
+//------------------------------------------------------------------------------
+function mapStateToProps (state) {
+  return {
+    id: state.current_user.id
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    userActions: bindActionCreators(userActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch),
+    imagesActions: bindActionCreators(imagesActions, dispatch),
+    profileActions: bindActionCreators(profileActions, dispatch),
+    newsActions: bindActionCreators(newsActions, dispatch),
+    friendsActions: bindActionCreators(friendsActions, dispatch),
+    messagesActions: bindActionCreators(messagesActions, dispatch)
+  }
+}
+//------------------------------------------------------------------------------
+export default connect(mapStateToProps, mapDispatchToProps)(Routing)
+//------------------------------------------------------------------------------
+window.onscroll = function(state) {
+  if (document.getElementsByClassName("bottom-news").length!=0) {
+    var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
+    var viewHeight = window.innerHeight;
+    if (viewHeight==bottom+53) {
+      const { setNews } = contact.props.newsActions
+      axios.post('/be/set', {num: document.getElementsByClassName("news").length,
+                             news: true})
+      .then((response) => { setNews(response.data.posts) })
+    }
+  }
+  if (document.getElementsByClassName("bottom").length!=0) {
+    var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
+    var viewHeight = window.innerHeight;
+    if (viewHeight==bottom+53) {
+      const { setPosts } = contact.props.profileActions
+      axios.post('/be/set', {num: document.getElementsByClassName("post").length,
+                             user_id: contact.props.id})
+      .then((response) => { setPosts(response.data.posts) })
+    }
+  }
+}
 
 function location (link) {
   var res = 'profile';
@@ -100,46 +144,3 @@ function getNewState (e) {
     }
   })
 }
-//------------------------------------------------------------------------------
-window.onscroll = function(state) {
-  if (document.getElementsByClassName("bottom-news").length!=0) {
-    var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
-    var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
-      const { setNews } = contact.props.newsActions
-      axios.post('/be/set', {num: document.getElementsByClassName("news").length,
-                             news: true})
-      .then((response) => { setNews(response.data.posts) })
-    }
-  }
-  if (document.getElementsByClassName("bottom").length!=0) {
-    var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
-    var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
-      const { setPosts } = contact.props.profileActions
-      axios.post('/be/set', {num: document.getElementsByClassName("post").length,
-                             user_id: contact.props.id})
-      .then((response) => { setPosts(response.data.posts) })
-    }
-  }
-}
-//------------------------------------------------------------------------------
-function mapStateToProps (state) {
-  return {
-    id: state.current_user.id
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    userActions: bindActionCreators(userActions, dispatch),
-    profileActions: bindActionCreators(profileActions, dispatch),
-    imagesActions: bindActionCreators(imagesActions, dispatch),
-    profileActions: bindActionCreators(profileActions, dispatch),
-    newsActions: bindActionCreators(newsActions, dispatch),
-    friendsActions: bindActionCreators(friendsActions, dispatch),
-    messagesActions: bindActionCreators(messagesActions, dispatch)
-  }
-}
-//------------------------------------------------------------------------------
-export default connect(mapStateToProps, mapDispatchToProps)(Routing)

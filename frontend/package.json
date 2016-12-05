@@ -44,6 +44,8 @@
     "react-websocket": "^1.1.6",
     "redux": "^3.6.0",
     "redux-thunk": "^2.1.0",
-    "reflux-state-mixin": "^0.7.0"
+    "reflux-state-mixin": "^0.7.0",
+    "redis": "0.10.0",
+    "socket.io": "1.2.1"
   }
 }

@@ -122,7 +122,7 @@ module UsersHelper
     friend_ids = current_user.friends.map {|men| men.id} + current_user.inverse_friends.map {|men| men.id}
     posts = Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n)
     posts = posts.map {|post| {post: post,
-                               src: (!Image.find_by(post_id: post.id).nil? ? Image.find_by(post_id: post.id).image.post.url : ''),
+                               src: (!Image.find_by(post_id: post.id).nil? ? ('/be/'+Image.find_by(post_id: post.id).image.post.url) : ''),
                                user_id: User.find_by(id: post.user_id).id,
                                user_name: User.find_by(id: post.user_id).name+' '+User.find_by(id: post.user_id).surname,
                                img: (get_avatar User.find_by(id: post.user.id))}}
