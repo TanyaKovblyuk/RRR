@@ -90,21 +90,26 @@ module UsersHelper
   end
 
   def confirmed_friends user
-    ids = (user.friend_relations.where('CAST(confirmed AS text) LIKE ?', "true")
-           .map {|relation| relation.friend_id}) +
-          (user.inverse_friend_relations.where('CAST(confirmed AS text) LIKE ?', "true")
-           .map {|relation| relation.user_id})
+    ids = (FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                                CAST(confirmed AS text) LIKE ?',
+                                user.id.to_s, 'true')
+           .map {|relation| relation.friend_id})
     User.where('CAST(id AS INT) IN (?)', ids)
   end
 
   def get_followers user
-    ids = (user.friend_relations.where('CAST(confirmed AS text) LIKE ?', "false")
-              .map {|relation| relation.friend_id})
+    ids = (FriendRelation.where('CAST(friend_id AS text) LIKE ? AND
+                                CAST(confirmed AS text) LIKE ?',
+                                user.id.to_s, 'false')
+           .map {|relation| relation.user_id})
     User.where('CAST(id AS INT) IN (?)', ids)
   end
 
   def is_friend? user
-    current_user.all_friends.all.include?(user)
+    FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                          CAST(friend_id AS text) LIKE ?',
+                          current_user.id.to_s, user.id.to_s)
+    .count==1
   end
 
   def date_format time
@@ -116,8 +121,10 @@ module UsersHelper
   end
 
   def news n
-    friend_ids = current_user.friends.map {|men| men.id} + current_user.inverse_friends.map {|men| men.id}
-    Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n)
+    friend_ids = (FriendRelation.where('CAST(user_id AS text) LIKE ?',
+                                        current_user.id.to_s)
+                  .map {|relation| relation.friend_id})
+    Post.where('CAST(user_id AS INT) IN (?)', friend_ids).last(10+n).reverse
     .map do |post|
       user = User.find_by(id: post.user_id)
       {post: post,

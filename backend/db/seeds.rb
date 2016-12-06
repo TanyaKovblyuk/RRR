@@ -29,5 +29,24 @@ User.all.each do |user|
   5.times {|n| user.images.create(image: File.open("#{Rails.root}/public/images/fallback/#{(0..9).to_a.sample}.jpg"))}
   user.images.create(image: File.open("#{Rails.root}/public/images/fallback/#{(0..9).to_a.sample}.jpg"), avatar: true)
   3.times {|n| user.posts.all.sample.images.create(user_id: user.id, image: File.open("#{Rails.root}/public/images/fallback/#{(0..9).to_a.sample}.jpg"))}
-  4.times {|n| user.friend_relations.create(friend_id: (0..9).to_a.sample)}
+  5.times do |n|
+    user_id = (0..9).to_a.sample
+    unless user_id==user.id
+      relation = FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                                       CAST(friend_id AS text) LIKE ?',
+                                       user.id.to_s, user_id.to_s)
+      inverse_relation = FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                                               CAST(friend_id AS text) LIKE ?',
+                                               user_id.to_s, user.id.to_s)
+      if relation.count==0 && inverse_relation.count==0
+        FriendRelation.create(user_id: user.id, friend_id: user_id)
+      end
+      if relation.count==0 && inverse_relation.count==1
+        FriendRelation.create(user_id: user.id,
+                              friend_id: user_id,
+                              confirmed: true)
+        inverse_relation.all[0].update_attributes(confirmed: true)
+      end
+    end
+  end
 end

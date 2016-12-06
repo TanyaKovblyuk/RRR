@@ -36,7 +36,8 @@ class User < ApplicationRecord
   has_secure_password
 
   def all_relations
-    FriendRelation.where('CAST(user_id AS text) LIKE ? OR CAST(friend_id AS text) LIKE ?', self.id.to_s, self.id.to_s)
+    FriendRelation.where('CAST(user_id AS text) LIKE ? OR
+                          CAST(friend_id AS text) LIKE ?', self.id.to_s, self.id.to_s)
   end
 
   def all_friends

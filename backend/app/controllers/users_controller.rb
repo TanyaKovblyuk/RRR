@@ -114,21 +114,25 @@ class UsersController < ApplicationController
 
   def followers
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = get_followers(user).all.map {|friend| {user: friend.slice(:name, :surname, :id),
-                                                  avatar: get_avatar(friend)}}
+    friends = get_followers(current_user).all.map do |friend|
+      {user: friend.slice(:name, :surname, :id),
+       avatar: get_avatar(friend)}
+    end
     respond_to do |format|
       format.json {render :json => {status: true, friends: friends}}
     end
   end
 
   def create_friend
-    user = User.find_by(id: (params[:id]||current_user.id))
-    if current_user.friends.all.include?(user)
-      FriendRelation.where('CAST(user_id AS text) LIKE ? AND
-                            CAST(friend_id AS text) LIKE ?', current_user.id.to_s, user.id.to_s)
-      .all[0].update_attribute(:confirmed, true)
-    else
-      relation = FriendRelation.create(user_id: params[:id], friend_id: current_user.id)
+    user = User.find_by(id: params[:id])
+    new_relation = FriendRelation.create(user_id: current_user.id,
+                                         friend_id: params[:id])
+    relation = FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                                    CAST(friend_id AS text) LIKE ?',
+                                    user.id.to_s, current_user.id.to_s)
+    unless relation.count==0
+      relation.all[0].update_attributes(confirmed: true)
+      new_relation.update_attributes(confirmed: true)
     end
     respond_to do |format|
       format.json {render :json => {is_friend: true}}
@@ -137,15 +141,14 @@ class UsersController < ApplicationController
 
   def destroy_friend
     user = User.find_by(id: params[:id])
-    relation = (FriendRelation.where('CAST(user_id AS text) LIKE ?', user.id.to_s)
-                              .where('CAST(friend_id AS text) LIKE ?', current_user.id.to_s))
-    unless relation.count==0
-      relation.each{|record| record.delete}
-    else
-      relation = (FriendRelation.where('CAST(user_id AS text) LIKE ?', current_user.id.to_s)
-                                .where('CAST(friend_id AS text) LIKE ?', user.id.to_s))
-      relation.each{|record| record.delete}
-    end
+    FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                         CAST(friend_id AS text) LIKE ?',
+                         current_user.id.to_s, user.id.to_s)
+    .all[0].delete
+    relation = FriendRelation.where('CAST(user_id AS text) LIKE ? AND
+                                    CAST(friend_id AS text) LIKE ?',
+                                    user.id.to_s, current_user.id.to_s)
+    relation.all[0].update_attributes(confirmed: false) unless relation.count==0
     respond_to do |format|
       format.json {render :json => {is_friend: false}}
     end
