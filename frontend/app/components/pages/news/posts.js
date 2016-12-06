@@ -24,7 +24,8 @@ class News extends React.Component{
                 <p className="name">{post.user_name}</p>
                 <p className="time">{post.post.created_at}</p>
                 <hr />
-                <div className="news-images" style={{display: (post.src==''? "none" : "block")}}>
+                <div className="news-images"
+                     style={{display: (post.src==''? "none" : "block")}}>
                   < PostImages images={post.src} />
                   <hr/>
                 </div>
@@ -40,7 +41,7 @@ class News extends React.Component{
 function mapStateToProps (state) {
   return {
     posts: state.news.news,
-    id: state.current_user.id
+    id: state.currentUser.id
   }
 }
 

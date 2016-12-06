@@ -65,10 +65,19 @@ class EditUser extends React.Component {
         <div className="nav-pass-content">
           <h1>Chang your password</h1>
           <form data-remote="true">
-            <input placeholder="Your password" type="password" onChange={this.fieldChange.bind(this, 'old_password')}/><br/><br/>
+            <input placeholder="Your password"
+                   type="password"
+                   onChange={this.fieldChange.bind(this, 'old_password')}/>
+            <br/><br/>
 
-            <input placeholder="New password" type="password" onChange={this.fieldChange.bind(this, 'password')}/><br/>
-            <input placeholder="Confirm new password" type="password" onChange={this.fieldChange.bind(this, 'password_confirmation')}/><br/>
+            <input placeholder="New password"
+                   type="password"
+                   onChange={this.fieldChange.bind(this, 'password')}/>
+            <br/>
+            <input placeholder="Confirm new password"
+                   type="password"
+                   onChange={this.fieldChange.bind(this, 'password_confirmation')}/>
+            <br/>
 
             <button name="button" onClick={this.handlePass}>Send</button>
           </form>
@@ -80,7 +89,7 @@ class EditUser extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    user: state.current_user
+    user: state.currentUser
   }
 }
 

@@ -27,7 +27,9 @@ class Gallery extends React.Component{
                       getShow={this.getShow} />
         {this.props.images.map(function(image, index){
           return (
-              <div className="one-img" key={index} onClick={this.setPosCurrentImage.bind(this, index)}>
+              <div className="one-img"
+                   key={index}
+                   onClick={this.setPosCurrentImage.bind(this, index)}>
                 < Img src={image} />
               </div>
           )}, this)}

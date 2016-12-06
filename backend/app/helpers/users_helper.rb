@@ -90,19 +90,21 @@ module UsersHelper
   end
 
   def confirmed_friends user
-    ids = user.friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id} +
-          user.inverse_friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id}
+    ids = (user.friend_relations.where('CAST(confirmed AS text) LIKE ?', "true")
+           .map {|relation| relation.friend_id}) +
+          (user.inverse_friend_relations.where('CAST(confirmed AS text) LIKE ?', "true")
+           .map {|relation| relation.user_id})
     User.where('CAST(id AS INT) IN (?)', ids)
   end
 
-  def likely_friends user
-    ids = user.friends.where('CAST(confirmed AS text) LIKE ?', "true").map {|men| men.id} +
-          user.inverse_friends.where('CAST(confirmed AS text) LIKE ?', "false").map {|men| men.id}
+  def get_followers user
+    ids = (user.friend_relations.where('CAST(confirmed AS text) LIKE ?', "false")
+              .map {|relation| relation.friend_id})
     User.where('CAST(id AS INT) IN (?)', ids)
   end
 
   def is_friend? user
-    current_user.inverse_friends.all.include?(user)
+    current_user.all_friends.all.include?(user)
   end
 
   def date_format time

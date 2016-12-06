@@ -21,7 +21,9 @@ export default class Post extends React.Component {
         < MinAvatar img={this.props.img}
                     user={this.props.author}
                     setProfile={this.props.setProfile} />
-        <p className="author">{this.props.author.name+' '+this.props.author.surname}</p>
+        <p className="author">
+          {this.props.author.name+' '+this.props.author.surname}
+        </p>
         <p className="date">{this.props.post.created_at}</p>
         <hr className="line" />
         < PostImages images={this.props.src} />
@@ -34,7 +36,9 @@ export default class Post extends React.Component {
            onClick={this.handleDelete}>
            Delete
         </a>
-        <Rating rating={this.props.rating} item={'post'} id={this.props.post.id} />
+        <Rating rating={this.props.rating}
+                item={'post'}
+                id={this.props.post.id} />
       </div>
     );
   }

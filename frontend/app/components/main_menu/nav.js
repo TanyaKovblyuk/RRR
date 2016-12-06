@@ -12,14 +12,14 @@ import * as messagesActions from '../../actions/MessagesActions';
 import './style.scss'
 
 class Nav extends React.Component {
-  linkEnter = (url, location, event) => {
+  linkEnter = (urlPath, location, event) => {
     const { setProfile } = this.props.profileActions
     const { setImages } = this.props.imagesActions
     const { setNews } = this.props.newsActions
     const { setFriends } = this.props.friendsActions
     const { setMessages } = this.props.messagesActions
 
-    axios.get('/be'+url)
+    axios.get('/be/users/'+this.props.id+urlPath)
     .then((response) => {
       switch (location) {
         case 'profile':
@@ -41,41 +41,42 @@ class Nav extends React.Component {
   }
 
   render() {
+    var id = this.props.id
     return (
       <div className="main-menu">
         <ul>
           <Link to="/ant-eater/profile"
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id, 'profile')}>
+                onClick={this.linkEnter.bind(this, "", 'profile')}>
             <li >
               Profile
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/messages"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/messages", 'messages')}>
+          <Link to={"/ant-eater/users/"+id+"/messages"}
+                onClick={this.linkEnter.bind(this, "/messages", 'messages')}>
             <li >
                 Messages
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/posts"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/posts", 'news')}>
+          <Link to={"/ant-eater/users/"+id+"/posts"}
+                onClick={this.linkEnter.bind(this, "/posts", 'news')}>
             <li >
                 News
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/friends"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/friends", 'friends')}>
+          <Link to={"/ant-eater/users/"+id+"/friends"}
+                onClick={this.linkEnter.bind(this, "/friends", 'friends')}>
             <li >
                 Friends
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/followers"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/followers", 'followers')}>
+          <Link to={"/ant-eater/users/"+id+"/followers"}
+                onClick={this.linkEnter.bind(this, "/followers", 'followers')}>
             <li >
                 Followers
             </li>
           </Link>
-          <Link to={"/ant-eater/users/"+this.props.id+"/images"}
-                onClick={this.linkEnter.bind(this, "/users/"+this.props.id+"/images", 'gallery')}>
+          <Link to={"/ant-eater/users/"+id+"/images"}
+                onClick={this.linkEnter.bind(this, "/images", 'gallery')}>
             <li >
                 Gallery
             </li>
@@ -88,7 +89,7 @@ class Nav extends React.Component {
 
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id
+    id: state.currentUser.id
   }
 }
 

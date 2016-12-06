@@ -60,12 +60,17 @@ export default class NewPost extends React.Component {
 
   render() {
     return (
-      <div className="NewPost" style={{display: (this.props.user_id==this.props.id? "block" : "none")}}>
-        <div className="to-create-post" style={{display: (this.state.show? "none" : "block")}}>
-          <button className="new-post" onClick={this.handleShow}>Write your new post</button>
+      <div className="NewPost"
+           style={{display: (this.props.user_id==this.props.id? "block" : "none")}}>
+        <div className="to-create-post"
+             style={{display: (this.state.show? "none" : "block")}}>
+          <button className="new-post"
+                  onClick={this.handleShow}>Write your new post</button>
         </div>
-        <div className="post-forms create-post" style={{display: (this.state.show? "block" : "none")}}>
-          < PostListImages images={this.state.uri} setNumToDelete={this.getNumToDelete}/>
+        <div className="post-forms create-post"
+             style={{display: (this.state.show? "block" : "none")}}>
+          < PostListImages images={this.state.uri}
+                           setNumToDelete={this.getNumToDelete}/>
           <form data-remote="true">
             <textarea className="post-create-body"
                       placeholder="Write your new post"

@@ -36,7 +36,9 @@ export default class Comment extends React.Component {
            onClick={this.handleDelete}>
            Delete
         </a>
-        <Rating rating={this.props.rating} item={'comment'} id={this.props.comment.id} />
+        <Rating rating={this.props.rating}
+                item={'comment'}
+                id={this.props.comment.id} />
       </div>
     );
   }

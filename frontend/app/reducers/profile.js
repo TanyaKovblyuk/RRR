@@ -8,7 +8,7 @@ const initialState = {
   is_friend: false
 }
 
-export default function current_user(state = (loadState()? loadState() : initialState), action) {
+export default function profile(state = (loadState()? loadState() : initialState), action) {
 
   switch (action.type) {
     case 'SET_PROFILE':

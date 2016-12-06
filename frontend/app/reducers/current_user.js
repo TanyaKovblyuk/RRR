@@ -4,7 +4,7 @@ const initialState = {
   surname: ''
 }
 
-export default function current_user(state = (loadState()? loadState() : initialState), action) {
+export default function currentUser(state = (loadState()? loadState() : initialState), action) {
   switch (action.type) {
     case 'SET_ID':
       return Object.assign({}, state, { id: action.payload })

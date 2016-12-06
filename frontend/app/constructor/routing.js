@@ -53,7 +53,7 @@ class Routing extends React.Component{
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id
+    id: state.currentUser.id
   }
 }
 
@@ -73,7 +73,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Routing)
 //------------------------------------------------------------------------------
 window.onscroll = function(state) {
   if (document.getElementsByClassName("bottom-news").length!=0) {
-    var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
+    var bottom = (document.getElementsByClassName("bottom-news")[0]
+                 .getBoundingClientRect().top);
     var viewHeight = window.innerHeight;
     if (viewHeight>=bottom+52.5) {
       const { setNews } = contact.props.newsActions
@@ -83,7 +84,8 @@ window.onscroll = function(state) {
     }
   }
   if (document.getElementsByClassName("bottom").length!=0) {
-    var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
+    var bottom = (document.getElementsByClassName("bottom")[1]
+                          .getBoundingClientRect().top);
     var viewHeight = window.innerHeight;
     if (viewHeight>=bottom+52.5) {
       const { setPosts } = contact.props.profileActions
@@ -96,7 +98,8 @@ window.onscroll = function(state) {
 
 function location (link) {
   var res = 'profile';
-  ['posts', 'followers', 'images', 'messages', 'friends', 'edit'].forEach(function(key) {
+  ['posts', 'followers', 'images', 'messages', 'friends', 'edit']
+  .forEach(function(key) {
     if (link.includes(key)) { res = key }
   });
   return res;
@@ -115,7 +118,8 @@ function getNewState (e) {
       setCurrentUser(response.data.current_user)
       var link = browserHistory.getCurrentLocation().pathname
       if (link.substr(11,30)=='') link='/ant-eater/profile'
-      var url = link.substr(11,30)=='profile'? ('/ant-eater/users/'+response.data.current_user.id) : link
+      var url = link.substr(11,30)=='profile'?
+                ('/ant-eater/users/'+response.data.current_user.id) : link
       axios.get('/be'+url.substr(10,100))
       .then((response) => {
         switch (location(link)) {

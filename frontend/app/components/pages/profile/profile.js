@@ -70,11 +70,13 @@ class Profile extends React.Component{
           <div className="friends">
             <p className="friends-h1">
               Friends
-              <Link to={"/ant-eater/users/"+profile.user.id+"/friends"} onClick={this.getFriends}>
+              <Link to={"/ant-eater/users/"+profile.user.id+"/friends"}
+                    onClick={this.getFriends}>
                 Show all
               </Link>
             </p>
-            {(profile.friends==undefined? [] : profile.friends).map(function(friend, index) {
+            {(profile.friends==undefined? [] : profile.friends)
+              .map(function(friend, index) {
               return (
                 < AvatarIco user={friend.user}
                             img={friend.avatar}
@@ -100,7 +102,8 @@ class Profile extends React.Component{
                                key={post.post.id}
                                setProfile={setProfile}
                                setPosts={setPosts} />
-                {(profile.comments[index]==undefined? [] : profile.comments[index]).map(function(comment, index) {
+                {(profile.comments[index]==undefined? [] : profile.comments[index])
+                  .map(function(comment, index) {
                   return (
                     < Comment comment={comment.comment}
                               author={comment.user}
@@ -125,7 +128,7 @@ class Profile extends React.Component{
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id,
+    id: state.currentUser.id,
     profile: state.profile
   }
 }

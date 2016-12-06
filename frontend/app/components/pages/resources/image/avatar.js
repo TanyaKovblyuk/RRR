@@ -5,7 +5,11 @@ export default class Avatar extends React.Component {
   render() {
     return (
       <figure className="avatar">
-        <p><img src={this.props.src} className="with" id={(new Date()).getTime()} /></p>
+        <p>
+          <img src={this.props.src}
+               className="with"
+               id={(new Date()).getTime()} />
+        </p>
       </figure>
     );
   }

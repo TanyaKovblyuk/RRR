@@ -51,8 +51,8 @@ var Reload = React.createClass({
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    current_user: state.current_user,
-    id: state.current_user.id,
+    current_user: state.currentUser,
+    id: state.currentUser.id,
   }
 }
 

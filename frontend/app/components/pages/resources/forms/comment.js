@@ -37,7 +37,8 @@ export default class NewComment extends React.Component {
           Write your new comment
         </button>
 
-        <div className="comment-forms" style={{display: (this.state.show? "block" : "none")}}>
+        <div className="comment-forms"
+             style={{display: (this.state.show? "block" : "none")}}>
           <form data-remote="true">
             <textarea placeholder="Write your new post"
                       autoFocus="autofocus"

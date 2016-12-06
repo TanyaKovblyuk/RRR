@@ -15,7 +15,8 @@ class ChangAvatar extends React.Component{
     const reader = new FileReader();
     reader.readAsDataURL(e.target.files[0]);
     reader.onload = (upload) => {
-      axios.post("/be/users/"+this.props.id+"/images", {avatar: upload.target.result})
+      axios.post("/be/users/"+this.props.id+"/images",
+                 {avatar: upload.target.result})
       .then((response) => {
         const { setProfile } = this.props.profileActions
         var profile=this.props.profile
@@ -28,7 +29,8 @@ class ChangAvatar extends React.Component{
   }
   render() {
     return (
-      <div className="new-avatar" style={{display: (this.props.user_id==this.props.id? "block" : "none")}}>
+      <div className="new-avatar"
+           style={{display: (this.props.user_id==this.props.id? "block" : "none")}}>
         <label htmlFor="files">New avatar</label>
         <input id="files" type="file" onChange={this.selectImage}/>
       </div>
@@ -38,7 +40,7 @@ class ChangAvatar extends React.Component{
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id,
+    id: state.currentUser.id,
     user_id: state.profile.user.id,
     profile: state.profile
   }

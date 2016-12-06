@@ -59,40 +59,48 @@ class NewUser extends React.Component {
           <input placeholder="Your name"
                  type="text"
                  onChange={this.fieldChange.bind(this, 'name')}
-                 id="user_name" /><br/>
+                 id="user_name" />
+          <br/>
 
           <input placeholder="Your surname"
                  type="text"
-                 onChange={this.fieldChange.bind(this, 'surname')} /><br/>
+                 onChange={this.fieldChange.bind(this, 'surname')} />
+          <br/>
 
           <p>
             <input type="radio"
                    name="gender"
                    value="male"
                    onClick={this.radioClick}
-                   id="user_gender_male" /> Male
+                   id="user_gender_male" />
+          Male
           </p>
 
           <input type="radio"
                  name="gender"
                  value="female"
                  onClick={this.radioClick}
-                 id="user_gender_female" /> Female<br/>
+                 id="user_gender_female" />
+          Female
+          <br/>
 
           <input placeholder="Your email"
                  type="text"
-                 onChange={this.fieldChange.bind(this, 'email')} /><br/>
+                 onChange={this.fieldChange.bind(this, 'email')} />
+          <br/>
 
           <input placeholder="Your password"
                  type="password"
-                 onChange={this.fieldChange.bind(this, 'password')} /><br/>
+                 onChange={this.fieldChange.bind(this, 'password')} />
+          <br/>
 
           <input placeholder="Confirm password"
                  type="password"
-                 onChange={this.fieldChange.bind(this, 'password_confirmation')} /><br/>
+                 onChange={this.fieldChange.bind(this, 'password_confirmation')} />
+          <br/>
 
 
-          {this.state.status == true? "" : this.state.errors.map(function(name, index){
+          {this.state.status? "" : this.state.errors.map(function(name, index){
             return < ErrorMsg msg={name} key={index} />;})}
 
           <button name="button" onClick={this.handleSend}>Its ok!</button>
@@ -112,7 +120,7 @@ var ErrorMsg = React.createClass({
 
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id
+    id: state.currentUser.id
   }
 }
 

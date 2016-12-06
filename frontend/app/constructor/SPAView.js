@@ -44,7 +44,7 @@ class SPAView extends React.Component{
 //------------------------------------------------------------------------------
 function mapStateToProps (state) {
   return {
-    id: state.current_user.id
+    id: state.currentUser.id
   }
 }
 //------------------------------------------------------------------------------

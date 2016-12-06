@@ -27,8 +27,11 @@ export default class Dropdown extends React.Component {
           <span>{this.props.surname}</span>
           <span className="img"></span>
         </p>
-        <div className="dropdown-up" style={{display: (this.state.disabled? "block" : "none")}}></div>
-        <ul className="dropdown-menu" style={{display: (this.state.disabled? "block" : "none")}}>
+        <div className="dropdown-up"
+             style={{display: (this.state.disabled? "block" : "none")}}>
+        </div>
+        <ul className="dropdown-menu"
+            style={{display: (this.state.disabled? "block" : "none")}}>
           <Link to={"/ant-eater/users/"+this.props.id+"/edit"}>
             <li>Edit profile</li>
           </Link>

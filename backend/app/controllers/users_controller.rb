@@ -114,7 +114,7 @@ class UsersController < ApplicationController
 
   def followers
     user = User.find_by(id: (params[:id]||current_user.id))
-    friends = likely_friends(user).map {|friend| {user: friend.slice(:name, :surname, :id),
+    friends = get_followers(user).all.map {|friend| {user: friend.slice(:name, :surname, :id),
                                                   avatar: get_avatar(friend)}}
     respond_to do |format|
       format.json {render :json => {status: true, friends: friends}}

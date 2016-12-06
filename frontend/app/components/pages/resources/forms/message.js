@@ -29,7 +29,8 @@ export default class NewMessage extends React.Component {
 
   render() {
     return (
-      <div className="send-message" style={{display: (this.props.show? "block" : "none")}}>
+      <div className="send-message"
+           style={{display: (this.props.show? "block" : "none")}}>
         <form data-remote="true">
           <textarea className="message-create-body"
                     placeholder="Write your message"

@@ -35,7 +35,8 @@ class Messages extends React.Component{
               < MinAvatar img={msg.img}
                           user={msg.user}
                           setProfile={setProfile} />
-              <div className="message-block" onClick={this.handleShow.bind(this, msg.message.id)}>
+              <div className="message-block"
+                   onClick={this.handleShow.bind(this, msg.message.id)}>
                 <p className="author">{msg.user.name+' '+msg.user.surname}</p>
                 <p className="date">{msg.message.created_at}</p>
                 <hr className="line" />
