@@ -16,7 +16,7 @@ import Post from '../resources/post/post';
 import NewComment from '../resources/forms/comment';
 import Comment from '../resources/comment/comment';
 import ChangAvatar from '../resources/user/chang_avatar';
-import ImgView from '../resources/image_view/img';
+import ImgListView from '../resources/image_view/img';
 
 import './style.scss'
 
@@ -26,7 +26,7 @@ class Profile extends React.Component{
     this.state = {show: false,
                   showFullSizeAvatar: false};
   }
-  addContactGetShow = (contact) => {
+  addContactGetShowMessage = (contact) => {
     this.setState({show: contact})
   }
   getContactShowFullSizeAvatar = (show) => {
@@ -54,19 +54,19 @@ class Profile extends React.Component{
             < Avatar src={profile.avatar} />
           </div>
           < ChangAvatar />
-          < ImgView images={profile.all_avatar}
-                    begin={0}
-                    show={this.state.showFullSizeAvatar}
-                    getShow={this.getContactShowFullSizeAvatar} />
+          < ImgListView images={profile.all_avatar}
+                        begin={0}
+                        show={this.state.showFullSizeAvatar}
+                        getShow={this.getContactShowFullSizeAvatar} />
           <hr />
           < UserActions id={this.props.id}
                         user_id={profile.user.id}
                         is_friend={profile.is_friend}
                         setStatus={setStatus}
-                        ContactGetShow={this.addContactGetShow} />
+                        ContactGetShow={this.addContactGetShowMessage} />
           < NewMessage id={profile.user.id}
                        show={this.state.show}
-                       ContactGetShow={this.addContactGetShow} />
+                       ContactGetShow={this.addContactGetShowMessage} />
           <div className="friends">
             <p className="friends-h1">
               Friends

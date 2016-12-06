@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 //------------------------------------------------------------------------------
 import * as profileActions from '../../../actions/ProfileActions';
 //------------------------------------------------------------------------------
@@ -17,15 +17,18 @@ class Friends extends React.Component{
   }
 
   render() {
+    var title = (browserHistory.getCurrentLocation().pathname
+                               .includes('followers')? 'Followers' : 'Friends')
     return (
       <div className="show-all-friends">
-        <h1>Friends</h1>
+        <h1>{title}</h1>
         <hr/>
         <div className="friends">
           {this.props.friends.map(function(friend, index){
             return (
               <div className="one-friend" key={index}>
-                  <Link to={"/ant-eater/users/"+friend.user.id} onClick={this.navVisit.bind(this, friend.user.id)}>
+                  <Link to={"/ant-eater/users/"+friend.user.id}
+                        onClick={this.navVisit.bind(this, friend.user.id)}>
                     <figure key={(new Date()).getTime()}>
                       <img src={friend.avatar} />
                     <figcaption>{friend.user.name}</figcaption>

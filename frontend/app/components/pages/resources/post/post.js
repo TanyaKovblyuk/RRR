@@ -3,6 +3,7 @@ import './style.scss'
 
 import MinAvatar from '../image/min_avatar';
 import Rating from '../rating/show';
+import PostImages from './post_images';
 
 export default class Post extends React.Component {
   handleDelete = (event) => {
@@ -23,7 +24,7 @@ export default class Post extends React.Component {
         <p className="author">{this.props.author.name+' '+this.props.author.surname}</p>
         <p className="date">{this.props.post.created_at}</p>
         <hr className="line" />
-        {this.props.src==''? '' : <img src={this.props.src} className="with" id={(new Date()).getTime()} />}
+        < PostImages images={this.props.src} />
         <div className="post-content">
           <p className="post-text">{this.props.post.text}</p>
         </div>

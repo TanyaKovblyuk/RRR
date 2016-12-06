@@ -1,0 +1,55 @@
+div.post-images-list {
+  width: 495px;
+  margin-left: 2.5px;
+  margin-bottom: 5px;
+  margin-top: 25px;
+
+  img {
+    cursor: pointer;
+  }
+
+  .one-image {
+    width: 485px;
+    height: 400px;
+  }
+
+  .first-image, .second-image {
+    width: 235px;
+    height: 300px;
+    float: left;
+    margin: 5px 0px 1.25px 5px;
+  }
+
+  .main-image {
+    width: 320px;
+    height: 303px;
+    margin-right: 5px;
+    float: left;
+  }
+
+  .other-images-two {
+    width: 160px;
+    margin-left: 325px;
+
+    img {
+      width: 160px;
+      height: 150px;
+    }
+  }
+
+  .other-images-three {
+    width: 160px;
+    margin-left: 325px;
+
+    img {
+      width: 160px;
+      height: 99px;
+    }
+  }
+
+  hr {
+    width: 100%;
+    clear: both;
+    display: none;
+  }
+}

@@ -40,12 +40,8 @@
     "react-native-actioncable": "0.0.3",
     "react-redux": "^4.4.6",
     "react-router": "^3.0.0",
-    "react-router-redux": "^4.0.7",
     "react-websocket": "^1.1.6",
     "redux": "^3.6.0",
-    "redux-thunk": "^2.1.0",
-    "reflux-state-mixin": "^0.7.0",
-    "redis": "0.10.0",
-    "socket.io": "1.2.1"
+    "redux-thunk": "^2.1.0"
   }
 }

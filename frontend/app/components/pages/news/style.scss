@@ -30,4 +30,18 @@
     clear: both;
     visibility: hidden;
   }
+
+  .news-images {
+    width: 490px;
+    margin: auto;
+
+    img {
+      display: block;
+    }
+
+    hr {
+      clear: both;
+      visibility: hidden;
+    }
+  }
 }

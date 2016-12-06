@@ -75,7 +75,7 @@ window.onscroll = function(state) {
   if (document.getElementsByClassName("bottom-news").length!=0) {
     var bottom = document.getElementsByClassName("bottom-news")[0].getBoundingClientRect().top;
     var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
+    if (viewHeight>=bottom+52.5) {
       const { setNews } = contact.props.newsActions
       axios.post('/be/set', {num: document.getElementsByClassName("news").length,
                              news: true})
@@ -85,7 +85,7 @@ window.onscroll = function(state) {
   if (document.getElementsByClassName("bottom").length!=0) {
     var bottom = document.getElementsByClassName("bottom")[1].getBoundingClientRect().top;
     var viewHeight = window.innerHeight;
-    if (viewHeight==bottom+53) {
+    if (viewHeight>=bottom+52.5) {
       const { setPosts } = contact.props.profileActions
       axios.post('/be/set', {num: document.getElementsByClassName("post").length,
                              user_id: contact.props.id})

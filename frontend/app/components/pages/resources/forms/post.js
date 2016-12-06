@@ -30,7 +30,7 @@ export default class NewPost extends React.Component {
         reader.readAsDataURL(e.target.files[i]);
 
         reader.onload = (upload) => {
-          images.push(upload.target.result)
+          images.push(upload.target.result);
           this.setState({ uri: images });
         };
       }

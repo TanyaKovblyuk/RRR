@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import Img from '../resources/image/img';
-import ImgView from '../resources/image_view/img';
+import ImgListView from '../resources/image_view/img';
 
 import './style.scss';
 
@@ -21,10 +21,10 @@ class Gallery extends React.Component{
   render() {
     return (
       <div className="show-all-images">
-        < ImgView images={this.props.images}
-                  begin={this.state.pos}
-                  show={this.state.show}
-                  getShow={this.getShow} />
+        < ImgListView images={this.props.images}
+                      begin={this.state.pos}
+                      show={this.state.show}
+                      getShow={this.getShow} />
         {this.props.images.map(function(image, index){
           return (
               <div className="one-img" key={index} onClick={this.setPosCurrentImage.bind(this, index)}>

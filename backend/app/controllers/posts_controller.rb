@@ -20,7 +20,7 @@ class PostsController < ApplicationController
         Image.create(post_id: Post.last.id, user_id: current_user.id, image: img)
       end
     end
-    refresh_posts user
+    refresh_posts current_user
   end
 
   def destroy
