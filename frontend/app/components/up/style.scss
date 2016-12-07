@@ -5,6 +5,9 @@ div.go-up {
   height: 40px;
   margin-left: 1200px;
   cursor: pointer;
-  position:absolute;
+  position: fixed;
+  bottom: 30px;
+  right: 40px;
   display: none;
+  z-index: 1;
 }

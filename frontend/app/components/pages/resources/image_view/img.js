@@ -18,7 +18,7 @@ export default class ImgListView extends React.Component{
       this.setState({currentNum: n}) : this.setState({currentNum: 0})
   }
   showPrev = (e) => {
-    var n = this.state.currentMum - 1;
+    var n = this.state.currentNum - 1;
     if (n > -1) {
       this.setState({currentNum: n})
     }

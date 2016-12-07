@@ -35,6 +35,7 @@ class SPAView extends React.Component{
             </div>
           </div>
         </div>
+        < GoUp />
         < Footer />
         <Websocket url='ws://localhost:3000/cable' onMessage={function(){}} />
       </div>

@@ -94,6 +94,12 @@ window.onscroll = function(state) {
       .then((response) => { setPosts(response.data.posts) })
     }
   }
+  if (document.body.scrollTop>100) {
+    document.getElementsByClassName("go-up")[0].style.display='block'
+  }
+  else {
+    document.getElementsByClassName("go-up")[0].style.display='none'
+  }
 }
 
 function location (link) {
