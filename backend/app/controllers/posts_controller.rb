@@ -8,6 +8,11 @@ class PostsController < ApplicationController
       respond_to do |format|
         format.json {render :json => {status: true, posts: news(params[:num])}}
       end
+    elsif params[:gallery]
+      respond_to do |format|
+        format.json {render :json => {status: true,
+                                      images: next_images(params[:num])}}
+      end
     else
       get_next_posts(User.find_by(id: params[:user_id]), params[:num])
     end
@@ -56,5 +61,9 @@ class PostsController < ApplicationController
                            :posts => response_posts(user, n),
                            :comments => response_comment(user, n)} end
       end
+    end
+
+    def next_images n=0
+      current_user.images.last(9+n).reverse.map {|img| '/be/'+img.image.url}
     end
 end

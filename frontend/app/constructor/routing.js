@@ -94,6 +94,17 @@ window.onscroll = function(state) {
       .then((response) => { setPosts(response.data.posts) })
     }
   }
+  if (document.getElementsByClassName("bottom-gallery").length!=0) {
+    var bottom = (document.getElementsByClassName("bottom-gallery")[0]
+                 .getBoundingClientRect().top);
+    var viewHeight = window.innerHeight;
+    if (viewHeight>=bottom+52.5) {
+      const { setImages } = contact.props.imagesActions
+      axios.post('/be/set', {num: document.getElementsByClassName("one-img").length,
+                             gallery: true})
+      .then((response) => { setImages(response.data.images) })
+    }
+  }
   if (document.body.scrollTop>100) {
     document.getElementsByClassName("go-up")[0].style.display='block'
   }

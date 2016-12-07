@@ -33,7 +33,7 @@ class Gallery extends React.Component{
                 < Img src={image} />
               </div>
           )}, this)}
-          <hr />
+          <hr className="bottom-gallery"/>
       </div>
     );
   }
