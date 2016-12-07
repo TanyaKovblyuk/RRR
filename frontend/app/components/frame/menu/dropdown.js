@@ -16,8 +16,8 @@ export default class Dropdown extends React.Component {
       method: 'delete',
       url: "/be/logout"
     });
-    this.props.setCurrentUser({id: '0'})
     localStorage.clear()
+    location.reload()
   }
 
   render() {

@@ -2,13 +2,8 @@ import React, { PropTypes } from 'react';
 import './message.scss'
 
 export default class NewMessage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {text: ''};
-  }
-
-  textChange = (event) => {
-    this.setState({ text: event.target.value })
+  componentDidUpdate() {
+    this.refs.messageTextarea.focus()
   }
   handleClose = (event) => {
     event.preventDefault();
@@ -17,13 +12,13 @@ export default class NewMessage extends React.Component {
   }
   handleSend = (event) => {
     event.preventDefault();
-    this.state.text.length>0?
+    this.refs.messageTextarea.value.length>0?
       axios({
         method: "POST",
         url: '/be/users/'+this.props.id+'/messages',
-        data: {'text': this.state.text}
+        data: {'text': this.refs.messageTextarea.value}
       }) : ''
-    this.setState({ text: '' })
+    this.refs.messageTextarea.value=''
     this.props.ContactGetShow(false)
   }
 
@@ -34,8 +29,7 @@ export default class NewMessage extends React.Component {
         <form data-remote="true">
           <textarea className="message-create-body"
                     placeholder="Write your message"
-                    autoFocus={this.state.show}
-                    value={this.state.text.length==0? '' : this.state.text}
+                    ref="messageTextarea"
                     type="text"
                     onChange={this.textChange}/><br/>
           <hr className="comment-margin" />

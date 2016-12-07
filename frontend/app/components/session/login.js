@@ -11,9 +11,7 @@ import './style.scss'
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {email: '',
-                  password: '',
-                  checked: false,
+    this.state = {checked: false,
                   error: ''};
   }
 
@@ -31,15 +29,15 @@ class Login extends React.Component {
     const { setCurrentUser } = this.props.userActions
     const { setProfile } = this.props.profileActions
     axios.post('/be/login', {
-      email: this.state.email,
-      password: this.state.password,
+      email: (this.refs.email.value||''),
+      password: (this.refs.password.value||''),
       remember_me: (this.state.checked? '1' : '0')
     })
     .then((response) => {
       if (response.data.status==true) {
-        setCurrentUser(response.data.current_user)
         setProfile(response.data.profile)
-        browserHistory.push('/ant-eater/profile')
+        localStorage.setItem('currentUser', JSON.stringify(response.data.current_user))
+        location.reload()
       }
       else {
         this.setState({error: "Invalid email/password"})
@@ -52,14 +50,12 @@ class Login extends React.Component {
         <input placeholder="Email"
                autoFocus="autofocus"
                ref='email'
-               type="text"
-               onChange={this.emailChange.bind(this)}/>
+               type="text"/>
         <br/>
 
         <input placeholder="Password"
                type="password"
-               ref='password'
-               onChange={this.passwordChange.bind(this)}/>
+               ref='password'/>
         <br/>
 
         <input type="checkbox"

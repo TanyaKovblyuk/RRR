@@ -7,14 +7,12 @@ import './post.scss'
 export default class NewPost extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {text: '',
-                  show: false,
+    this.state = {show: false,
                   fileName: '',
                   uri: []};
   }
-
-  textChange = (event) => {
-    this.setState({ text: event.target.value });
+  componentDidUpdate() {
+    this.refs.postTextarea.focus()
   }
   handleShow = (event) => {
     this.setState({ show: !(this.state.show) });
@@ -45,17 +43,15 @@ export default class NewPost extends React.Component {
   }
   handlePost = (event) => {
     event.preventDefault();
-    (this.state.text.length>5||this.state.uri.length>0)?
+    (this.refs.postTextarea.value.length>5||this.state.uri.length>0)?
       axios({
         method: "POST",
         url: '/be/users/'+this.props.id+'/posts',
-        data: {'text': this.state.text, image: this.state.uri}
+        data: {'text': this.refs.postTextarea.value, image: this.state.uri}
       })
       .then((response) => { this.props.setPosts(response.data.posts) }) : ''
-    this.setState({ show: false })
-    this.setState({ text: '' })
-    this.setState({fileName: ''})
-    this.setState({uri: ''})
+    this.setState({ show: false, fileName: '', uri: []})
+    this.refs.postTextarea.value=''
   }
 
   render() {
@@ -74,10 +70,9 @@ export default class NewPost extends React.Component {
           <form data-remote="true">
             <textarea className="post-create-body"
                       placeholder="Write your new post"
-                      autoFocus={this.state.show}
-                      value={this.state.text.length==0? '' : this.state.text}
-                      type="text"
-                      onChange={this.textChange}/><br/>
+                      ref="postTextarea"
+                      type="text" />
+            <br/>
 
             <label htmlFor="upload-images">Add image</label>
             <input type="file"
