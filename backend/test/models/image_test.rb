@@ -25,12 +25,12 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   def test_resize
-    image = MiniMagick::Image.open(@img.image.thumb.path)
-    assert_equal 60, image[:width]
-    assert_equal 60, image[:height]
-    image = MiniMagick::Image.open(@img.image.list.path)
-    assert_equal 200, image[:width]
-    assert_equal 300, image[:height]
+    image = MiniMagick::Image.open(@img.image.preview.path)
+    assert_equal 40, image[:width]
+    assert_equal 45, image[:height]
+    image = MiniMagick::Image.open(@img.image.post.path)
+    assert_equal 490, image[:width]
+    assert_equal 400, image[:height]
     image = MiniMagick::Image.open(@img.image.avatar.path)
     assert_equal 200, image[:width]
     assert_equal 250, image[:height]
