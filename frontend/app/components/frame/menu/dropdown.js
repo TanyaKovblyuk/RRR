@@ -1,16 +1,9 @@
 import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
+
 require("./style.scss")
 
 export default class Dropdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {disabled: false};
-  }
-  handleShow = (event) => {
-    event.preventDefault();
-    this.setState({ disabled: !this.state.disabled });
-  }
   logOutClick = (event) => {
     axios({
       method: 'delete',
@@ -19,19 +12,14 @@ export default class Dropdown extends React.Component {
     localStorage.clear()
     location.reload()
   }
-
   render() {
     return (
       <li className="dropdown">
-        <p onClick={this.handleShow}>
+        <p>
           <span>{this.props.surname}</span>
           <span className="img"></span>
         </p>
-        <div className="dropdown-up"
-             style={{display: (this.state.disabled? "block" : "none")}}>
-        </div>
-        <ul className="dropdown-menu"
-            style={{display: (this.state.disabled? "block" : "none")}}>
+        <ul className="dropdown-menu">
           <Link to={"/ant-eater/users/"+this.props.id+"/edit"}>
             <li>Edit profile</li>
           </Link>

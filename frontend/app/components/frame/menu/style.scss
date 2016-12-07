@@ -1,15 +1,14 @@
 li.dropdown {
   width: 90px;
   height: 28px;
-  margin-top: -17px;
+  margin-top: -16px;
   padding: 10px 0px 2px 8px;
   color: rgba(55, 0, 255, 0.84);
   cursor: pointer;
 }
 
 li.dropdown:hover {
-  background-color: rgba(17, 219, 221, 0.74);
-  border: 1px groove #ccc;
+  background-color: rgba(17, 219, 221, 0.24);
 }
 
 .dropdown p>span {
@@ -27,40 +26,28 @@ li.dropdown:hover {
   margin-top: -20px;
 }
 
-.dropdown div.dropdown-up {
-  background: url('up.png') no-repeat;
-  background-size: 100%;
-  //display: none;
-  width: 30px;
-  height: 30px;
-  margin-left: 25px;
-  margin-top: 15px;
+li.dropdown:hover .dropdown-menu {
+  display: block;
 }
 
-.dropdown-menu ul {
-  position: absolute;
+.dropdown-menu {
+  margin-top: 28px;
   display: none;
-  padding-top: 2px;
-  width: 90px;
-  margin-left: -5px;
-  margin-top: 0px;
-  border: 1px solid #ccc;
-  background-color: rgba(170, 209, 221, 0.24);
+  margin-left: -10px;
 }
 
 .dropdown-menu a { text-decoration: none; }
 
 .dropdown-menu li {
-  //display: none;
-  width: 80px;
+  width: 87px;
   padding: 5px 0px 5px 4px;
   margin-bottom: 2px;
   margin-left: 2px;
   display: block;
   color: rgba(0, 98, 255, 0.87);
-  background-color: rgba(170, 221, 17, 0.41);
-  border: 1px groove rgba(204, 204, 204, 0.42);
+  background-color: rgba(170, 221, 17, 0.81);
+  border: 4px groove rgba(204, 204, 204, 0.42);
   cursor: pointer;
 }
 
-.dropdown-menu li:hover { background-color: rgba(170, 209, 221, 0.86); }
+.dropdown-menu li:hover { background-color: rgba(170, 209, 221, 0.96); }
