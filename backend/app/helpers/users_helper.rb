@@ -26,6 +26,7 @@ module UsersHelper
      :comments => response_comment(user),
      :is_friend => is_friend?(user),
      :friends => get_nine_friends(user),
+     :images => get_eight_images(user),
      :statistics => {:posts => user.posts.count,
                      :images => user.images.count,
                      :comments => user.comments.count,
@@ -68,6 +69,12 @@ module UsersHelper
       {avatar: get_avatar(friend),
        user: friend.slice(:name, :surname, :id)}
     end
+  end
+
+  def get_eight_images user
+    imgs = user.images
+    (imgs.count < 8 ? imgs : imgs.last(8))
+    .map {|img| ('/be/'+img.image.post.url)}
   end
 
   def confirmed_friends user

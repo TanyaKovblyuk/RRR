@@ -5,6 +5,7 @@ const initialState = {
   friends: [],
   posts: [],
   comments: [],
+  images: [],
   is_friend: false
 }
 

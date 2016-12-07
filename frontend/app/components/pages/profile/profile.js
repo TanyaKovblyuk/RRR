@@ -47,6 +47,8 @@ class Profile extends React.Component{
     const { setPosts } = this.props.profileActions
     const { setComments } = this.props.profileActions
     var profile = this.props.profile
+    var showFriends = this.props.profile.friends.length>0
+    var showImages = this.props.profile.images.length>0
     return (
       <div className="user-show">
         <div className="profile-static">
@@ -67,7 +69,7 @@ class Profile extends React.Component{
           < NewMessage id={profile.user.id}
                        show={this.state.show}
                        ContactGetShow={this.addContactGetShowMessage} />
-          <div className="friends">
+          <div className="friends" style={{display: (showFriends? "block" : "none")}}>
             <p className="friends-h1">
               Friends
               <Link to={"/ant-eater/users/"+profile.user.id+"/friends"}
@@ -84,6 +86,15 @@ class Profile extends React.Component{
                             key={index} /> )}, this)}
           </div>
           <hr className="bottom" />
+          <hr style={{display: (showFriends? "block" : "none")}}/>
+          <div className="profile-image-list"
+               style={{display: (showFriends? "block" : "none")}}>
+            <p>Last images in gallery</p>
+            {(profile.images==undefined? [] : profile.images)
+              .map(function(img, index) {
+              return (
+                <img src={img} key={index} /> )}, this)}
+          </div>
         </div>
         <div className="profile-activity">
           < UserInfo user={profile.user} statistics={profile.statistics} />

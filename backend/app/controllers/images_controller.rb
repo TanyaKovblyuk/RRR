@@ -3,7 +3,7 @@ class ImagesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def index
-    images = current_user.images.reverse.map {|img| '/be/'+img.image.avatar.url}
+    images = current_user.images.reverse.map {|img| '/be/'+img.image.url}
     respond_to do |format|
       format.json {render :json => {status: true, images: images}}
     end
