@@ -19,6 +19,6 @@ export default function currentUser(state = (loadState()? loadState() : initialS
 
 
 const loadState = () => {
-  const serializedState = localStorage.getItem('current_user');
+  const serializedState = localStorage.getItem('currentUser');
   return JSON.parse(serializedState);
 }

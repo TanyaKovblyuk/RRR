@@ -34,7 +34,10 @@
     "webpack-dev-server": "^1.16.2"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-polyfill": "^6.16.0",
+    "file-loader": "^0.9.0",
+    "node-sass-loader": "^0.1.7",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-native-actioncable": "0.0.3",
