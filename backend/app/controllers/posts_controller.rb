@@ -38,4 +38,23 @@ class PostsController < ApplicationController
     def post_params
       params.permit(:text)
     end
+
+    def refresh_posts user
+      respond_to do |format|
+        format.json do
+          render :json => {:status => true,
+                           :posts => response_posts(user),
+                           :comments => response_comment(user)}
+        end
+      end
+    end
+
+    def get_next_posts(user, n)
+      respond_to do |format|
+        format.json do
+          render :json => {:status => true,
+                           :posts => response_posts(user, n),
+                           :comments => response_comment(user, n)} end
+      end
+    end
 end

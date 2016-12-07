@@ -38,25 +38,6 @@ module UsersHelper
     images.count==0? [] : images
   end
 
-  def refresh_posts user
-    respond_to do |format|
-      format.json do
-        render :json => {:status => true,
-                         :posts => response_posts(user),
-                         :comments => response_comment(user)}
-      end
-    end
-  end
-
-  def get_next_posts(user, n)
-    respond_to do |format|
-      format.json do
-        render :json => {:status => true,
-                         :posts => response_posts(user, n),
-                         :comments => response_comment(user, n)} end
-    end
-  end
-
   def response_posts(user, n=0)
     user.posts.last(10+n).reverse.map do |post|
       {post: post,
