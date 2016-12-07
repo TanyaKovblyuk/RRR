@@ -110,6 +110,7 @@ class Profile extends React.Component{
                                src={post.img}
                                post={post.post}
                                rating={post.rating}
+                               utube={post.utube}
                                key={post.post.id}
                                setProfile={setProfile}
                                setPosts={setPosts} />

@@ -43,13 +43,16 @@ export default class NewPost extends React.Component {
   }
   handlePost = (event) => {
     event.preventDefault();
-    (this.refs.postTextarea.value.length>5||this.state.uri.length>0)?
+    if (this.refs.postTextarea.value.length>5||this.state.uri.length>0) {
       axios({
         method: "POST",
         url: '/be/users/'+this.props.id+'/posts',
         data: {'text': this.refs.postTextarea.value, image: this.state.uri}
       })
-      .then((response) => { this.props.setPosts(response.data.posts) }) : ''
+      .then((response) => {
+        if (response.data.status) {this.props.setPosts(response.data.posts)}
+      })
+    }
     this.setState({ show: false, fileName: '', uri: []})
     this.refs.postTextarea.value=''
   }

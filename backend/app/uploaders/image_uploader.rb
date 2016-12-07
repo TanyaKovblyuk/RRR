@@ -16,6 +16,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [200,250]
   end
 
+  version :preview do
+    process resize_to_fill: [40,45]
+  end
+
   version :post do
     process resize_to_fill: [490,400, gravity = 'NorthWest']
   end

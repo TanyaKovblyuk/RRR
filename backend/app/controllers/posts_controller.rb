@@ -1,5 +1,5 @@
 require 'uri'
-require "base64"
+
 class PostsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
@@ -19,13 +19,21 @@ class PostsController < ApplicationController
   end
 
   def create
-    current_user.posts.create(post_params)
-    unless params[:image].length==0
-      params[:image].each do |img|
-        Image.create(post_id: Post.last.id, user_id: current_user.id, image: img)
+    url = URI.extract(params[:text])
+    if (url.count==0) ||
+       !(url.map{|link| link.include?("youtube.com/embed")}.include?(false))
+      current_user.posts.create(post_params)
+      unless params[:image].length==0
+        params[:image].each do |img|
+          Image.create(post_id: Post.last.id, user_id: current_user.id, image: img)
+        end
+      end
+      refresh_posts current_user
+    else
+      respond_to do |format|
+        format.json {render :json => {status: false}}
       end
     end
-    refresh_posts current_user
   end
 
   def destroy

@@ -43,6 +43,7 @@ module UsersHelper
     user.posts.last(10+n).reverse.map do |post|
       {post: post,
        rating: search_rating(post),
+       utube: URI.extract(post.text)[0],
        img: post_images(post) }
     end
   end
@@ -74,7 +75,7 @@ module UsersHelper
   def get_eight_images user
     imgs = user.images
     (imgs.count < 8 ? imgs : imgs.last(8))
-    .map {|img| ('/be/'+img.image.post.url)}
+    .map {|img| ('/be/'+img.image.preview.url)}
   end
 
   def confirmed_friends user
