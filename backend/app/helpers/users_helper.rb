@@ -30,7 +30,7 @@ module UsersHelper
      :statistics => {:posts => user.posts.count,
                      :images => user.images.count,
                      :comments => user.comments.count,
-                     :friends => user.all_friends.count}}
+                     :friends => confirmed_friends(user).count}}
   end
 
   def post_images post
@@ -75,7 +75,7 @@ module UsersHelper
   def get_eight_images user
     imgs = user.images
     (imgs.count < 8 ? imgs : imgs.last(8))
-    .map {|img| ('/be/'+img.image.preview.url)}
+    .map {|img| ('/be'+img.image.preview.url)}
   end
 
   def confirmed_friends user
