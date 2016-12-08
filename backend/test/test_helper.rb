@@ -31,4 +31,10 @@ module UserTestHelper
                           password: "True0pass",
                           password_confirmation: "True0pass")
   end
+
+  def log_in_as user
+    post '/login.json', params:  {:email => user.email,
+                                  :password => valid_user[:password],
+                                  :remember_me => '1'}
+  end
 end

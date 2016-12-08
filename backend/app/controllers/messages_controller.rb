@@ -11,7 +11,7 @@ class MessagesController < ApplicationController
                message: msg}
     end
     respond_to do |format|
-      format.json {render :json => {status: false, messages: msgs}}
+      format.json {render :json => {status: true, messages: msgs}}
     end
   end
 

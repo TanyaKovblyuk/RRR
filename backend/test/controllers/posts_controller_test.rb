@@ -6,9 +6,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = User.create( valid_user )
-    post '/login.json', params:  {:email => @user.email,
-                                  :password => valid_user[:password],
-                                  :remember_me => '1'}
+    log_in_as @user
   end
 
   def test_create_new_post
