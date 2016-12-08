@@ -49,7 +49,7 @@ class UsersController < ApplicationController
                           :estimator_id => current_user.id,
                           (params[:like]? :like : :dislike) => 1)
     rescue => error
-      puts "Error: duplicate key"
+      "Error: duplicate key"
     end
     respond_to do |format|
       format.json {render :json => {status: error.nil?, rating: search_rating(item)}}
@@ -67,9 +67,10 @@ class UsersController < ApplicationController
   end
 
   def edit_pass
-    current_user.authenticated?(:password, params[:old_password])
-    current_user.update_attributes(:password => params[:password],
-                                   :password_confirmation => params[:password_confirmation])
+    if current_user.authenticated?(:password, params[:old_password])
+      current_user.update_attributes(:password => params[:password],
+                                     :password_confirmation => params[:password_confirmation])
+    end
     respond_to do |format|
       format.json {render :json => current_user.slice(:name, :surname, :id)}
     end
