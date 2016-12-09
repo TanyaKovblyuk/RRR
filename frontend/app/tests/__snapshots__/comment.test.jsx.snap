@@ -1,0 +1,93 @@
+exports[`test renders correctly Comment 1`] = `
+<div
+  className="comment">
+  <a
+    onClick={[Function]}
+    style={Object {}}>
+    <figure
+      className="pfofile-friend">
+      <p>
+        <img
+          src="url" />
+      </p>
+    </figure>
+  </a>
+  <a
+    className="author"
+    data-remote="true"
+    href="/ant-eater/users/5">
+    First Second
+  </a>
+  <hr
+    className="line" />
+  <p
+    className="date">
+    07.11
+  </p>
+  <div
+    className="comment-content">
+    <p
+      className="comment-text">
+      Long text
+    </p>
+  </div>
+  <a
+    className="edit-comment"
+    data-remote="true"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "block",
+      }
+    }>
+    Delete
+  </a>
+</div>
+`;
+
+exports[`test renders correctly Comment as another user 1`] = `
+<div
+  className="comment">
+  <a
+    onClick={[Function]}
+    style={Object {}}>
+    <figure
+      className="pfofile-friend">
+      <p>
+        <img
+          src="url" />
+      </p>
+    </figure>
+  </a>
+  <a
+    className="author"
+    data-remote="true"
+    href="/ant-eater/users/5">
+    First Second
+  </a>
+  <hr
+    className="line" />
+  <p
+    className="date">
+    07.11
+  </p>
+  <div
+    className="comment-content">
+    <p
+      className="comment-text">
+      Long text
+    </p>
+  </div>
+  <a
+    className="edit-comment"
+    data-remote="true"
+    onClick={[Function]}
+    style={
+      Object {
+        "display": "none",
+      }
+    }>
+    Delete
+  </a>
+</div>
+`;
