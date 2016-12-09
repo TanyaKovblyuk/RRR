@@ -12,7 +12,10 @@ export default class Post extends React.Component {
       method: "DELETE",
       url: "/be/users/"+this.props.author.id+"/posts/"+this.props.post.id
     })
-    .then((response) => { this.props.setPosts(response.data.posts) })
+    .then((response) => {
+      this.props.setPosts(response.data.posts)
+      this.props.setComments(response.data.comments)  
+    })
   }
 
   render() {

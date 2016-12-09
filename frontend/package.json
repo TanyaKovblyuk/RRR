@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --inline --hot",
-    "test": "jest"
+    "test": "jest",
+    "integration": "./node_modules/protractor/bin/protractor protractor.conf.js"
   },
   "jest": {
     "verbose": true
@@ -24,7 +25,9 @@
     "css-loader": "^0.26.0",
     "d3": "^4.4.0",
     "expect": "^1.20.2",
+    "jasmine": "^2.5.2",
     "jest": "^17.0.3",
+    "protractor": "^4.0.12",
     "react": "^15.4.1",
     "react-test-renderer": "^15.4.1",
     "sass-loader": "^4.0.2",
@@ -39,6 +42,7 @@
     "file-loader": "^0.9.0",
     "node-sass-loader": "^0.1.7",
     "react": "^15.4.1",
+    "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-native-actioncable": "0.0.3",
     "react-redux": "^4.4.6",

@@ -7,7 +7,6 @@ export default class NewMessage extends React.Component {
   }
   handleClose = (event) => {
     event.preventDefault();
-    this.setState({ show: !(this.state.show) })
     this.props.ContactGetShow(false)
   }
   handleSend = (event) => {

@@ -113,7 +113,8 @@ class Profile extends React.Component{
                                utube={post.utube}
                                key={post.post.id}
                                setProfile={setProfile}
-                               setPosts={setPosts} />
+                               setPosts={setPosts}
+                               setComments={setComments} />
                 {(profile.comments[index]==undefined? [] : profile.comments[index])
                   .map(function(comment, index) {
                   return (
