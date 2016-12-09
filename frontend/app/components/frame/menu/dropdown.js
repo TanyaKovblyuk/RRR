@@ -10,7 +10,7 @@ export default class Dropdown extends React.Component {
       url: "/be/logout"
     });
     localStorage.clear()
-    location.reload()
+    setTimeout(function(){location.reload()}, 200);
   }
   render() {
     return (

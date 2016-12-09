@@ -30,7 +30,7 @@ User.all.each do |user|
   user.images.create(image: File.open("#{Rails.root}/public/images/fallback/#{(0..9).to_a.sample}.jpg"), avatar: true)
   3.times {|n| user.posts.all.sample.images.create(user_id: user.id, image: File.open("#{Rails.root}/public/images/fallback/#{(0..9).to_a.sample}.jpg"))}
   5.times do |n|
-    user_id = (0..9).to_a.sample
+    user_id = (1..10).to_a.sample
     unless user_id==user.id
       relation = FriendRelation.where('CAST(user_id AS text) LIKE ? AND
                                        CAST(friend_id AS text) LIKE ?',
@@ -49,4 +49,15 @@ User.all.each do |user|
       end
     end
   end
+end
+
+User.find_by(id: 10).update_attributes(email: 'my_email@exemple.com',
+                                       password: "Truepass1",
+                                       password_confirmation: "Truepass1")
+Image.create(image: File.open("#{Rails.root}/public/images/fallback/avatar.png"),
+             avatar: true,
+             user_id: 10)
+5.times do |n|
+  User.find_by(id: (n+1)).messages.create(receiver_id: 10,
+                                      text: "Very important message about #{n}!")
 end

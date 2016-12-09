@@ -22,7 +22,7 @@ module.exports = {
 
   devServer: {
         historyApiFallBack: true,
-        hot: true,
+        //hot: true,
         inline: true,
         proxy: {
             '/be/': {

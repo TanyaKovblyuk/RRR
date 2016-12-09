@@ -4,7 +4,7 @@
   "description": "react-frontend",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --hot",
+    "start": "webpack-dev-server --inline",
     "test": "jest",
     "integration": "./node_modules/protractor/bin/protractor protractor.conf.js"
   },
