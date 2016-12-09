@@ -67,3 +67,5 @@ b) npm start
 * Open terminal window in *backend* folder and run: `rails s`
 * Open next terminal window in *frontend* folder and run: `npm start`
 * Open next terminal window in *frontend* folder again and run: `npm run integration`
+
+> If test don't run, update your webDriver: run `./node_modules/protractor/bin/webdriver-manager update` and `webdriver-manager update`.
