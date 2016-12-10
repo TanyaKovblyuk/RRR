@@ -56,7 +56,7 @@ b) npm start
 
 [*Jest*]
 
-* Open terminal window in *backend* folder and run: `npm test`
+* Open terminal window in *frontend* folder and run: `npm test`
 
 ***
 
